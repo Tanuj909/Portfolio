@@ -5,20 +5,24 @@ import Skills from '../section/Skills'
 import About from '../section/About'
 import Contact from '../section/Contact'
 import WorkSection from '../section/WorkSection'
+import { useRef } from 'react';
 
 const Home = () => {
+
+  const workRef = useRef(null);
+
   return (
-    <div className=''>
+    <div className="h-screen snap-y snap-mandatory scroll-smooth">
 
 <section id="hero" className="h-screen snap-start">
-  <Hero />
+  <Hero onWorkClick={() => workRef.current?.scrollIntoView({ behavior: "smooth" })} />
 </section>
 
 <section id="about" className="h-screen snap-start">
   <About />
 </section>
 
-<section id="work" className="h-screen snap-start">
+<section ref={workRef} id="work" className="h-screen snap-start">
   <WorkSection />
 </section>
 

@@ -5,7 +5,7 @@ import { Mail, Github, Linkedin, Send, MapPin, ExternalLink } from 'lucide-react
 
 const Contact = () => {
   return (
-    <section id="contact" className="min-h-screen flex items-center justify-center py-20 overflow-hidden">
+    <section id="contact" className="min-h-screen flex items-center justify-center py-10 overflow-hidden">
       <div className="max-w-7xl w-full px-6">
 
         {/* Header */}
@@ -48,25 +48,25 @@ const Contact = () => {
                 <ContactItem
                   icon={<Mail className="w-5 h-5 text-indigo-600" />}
                   label="Email"
-                  value="hello@example.com"
-                  href="mailto:hello@example.com"
+                  value="tanujkashyap913@gmail.com"
+                  href="mailto:tanujkashyap913@gmail.com"
                 />
                 <ContactItem
                   icon={<Linkedin className="w-5 h-5 text-indigo-600" />}
                   label="LinkedIn"
                   value="linkedin.com/in/tanuj"
-                  href="#"
+                  href="linkedin.com/in/tanuj-kashyap-909934275"
                 />
                 <ContactItem
                   icon={<Github className="w-5 h-5 text-indigo-600" />}
                   label="GitHub"
                   value="github.com/tanuj"
-                  href="#"
+                  href="https://github.com/Tanuj909"
                 />
                 <ContactItem
                   icon={<MapPin className="w-5 h-5 text-indigo-600" />}
                   label="Location"
-                  value="San Francisco, CA"
+                  value="India, Delhi"
                 />
               </div>
             </div>

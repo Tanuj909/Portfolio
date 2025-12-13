@@ -136,7 +136,7 @@ const WorkSection = () => {
             >
               <div>
                 <h3 className="text-4xl font-bold text-gray-900 mb-4">{projects[current].title}</h3>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="text-lg text-gray-600 leading-relaxed line-clamp-2">
                   {projects[current].description}
                 </p>
               </div>
@@ -177,6 +177,10 @@ const WorkSection = () => {
                     Live Demo
                   </a>
                 )}
+
+                <button className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-md ">
+                  More?
+                </button>
               </div>
             </motion.div>
           </div>

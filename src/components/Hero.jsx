@@ -4,7 +4,8 @@ import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import Sidebar from "./Sidebar";
 
-const Hero = () => {
+
+const Hero = ({onWorkClick}) => {
   return (
     <div className="w-full h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-20">
 
@@ -54,11 +55,13 @@ const Hero = () => {
         />
 
         <motion.button
+          onClick={onWorkClick}
           className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          View My Work
+            View My Work
+         
         </motion.button>
       </motion.div>
     </div>

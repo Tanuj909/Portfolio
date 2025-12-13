@@ -36,18 +36,20 @@ export default function AboutUsSection() {
             viewport={{ once: false, amount: 0.2 }}
             variants={fadeInLeft}
           >
-            <p className="text-gray-500 text-sm uppercase tracking-wider">
-              A little about us
+            <p className="text-gray-500 lg:text-4xl uppercase tracking-wider">
+              Who am I?
             </p>
 
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Empowering Communities Together
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+              Crafting Scalable & High-Performance Web Applications
             </h1>
 
-            <p className="text-gray-600 text-lg leading-relaxed">
-              the creation of environments where everyone has the opportunity to thrive.
-              This approach not only promotes individual success but also contributes to
-              the overall resilience and cohesion of society.
+            <p className="text-gray-600 text-lg leading-relaxed line-clamp-3">
+I’m a Full Stack Developer with hands-on experience in building efficient, scalable,
+  and production-ready web applications. I work across both frontend and backend,
+  creating seamless user experiences with React and robust server-side architectures
+  using Java and Spring Boot. With almost one year of experience, I focus on clean
+  code, optimized performance, and delivering reliable APIs that power modern applications.
             </p>
 
             <div className="space-y-4">
@@ -56,7 +58,7 @@ export default function AboutUsSection() {
                   <Check className="w-4 h-4 text-white" strokeWidth={3} />
                 </div>
                 <p className="text-gray-700 text-lg">
-                  More than 10 years of experience.
+                  Full Stack Developer With almost 1 year of experience, skilled in Java, Spring Boot, React.js & SQL.
                 </p>
               </div>
 
@@ -65,7 +67,7 @@ export default function AboutUsSection() {
                   <Check className="w-4 h-4 text-white" strokeWidth={3} />
                 </div>
                 <p className="text-gray-700 text-lg">
-                  Over 100k happy customers and finished projects.
+                   Experienced in designing scalable systems and high-performance REST APIs.
                 </p>
               </div>
 
@@ -74,13 +76,13 @@ export default function AboutUsSection() {
                   <Check className="w-4 h-4 text-white" strokeWidth={3} />
                 </div>
                 <p className="text-gray-700 text-lg">
-                  It has 20 branches around the world.
+                  Hands-on experience in both frontend and backend development.
                 </p>
               </div>
             </div>
 
             <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
-              Get Started
+              Want to know more?
             </button>
           </motion.div>
 
