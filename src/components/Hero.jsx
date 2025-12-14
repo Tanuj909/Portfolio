@@ -63,6 +63,20 @@ const Hero = ({onWorkClick}) => {
             View My Work
          
         </motion.button>
+
+        <motion.a
+  href="/TANUJ_Resume.pdf"
+  download
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-6 ml-3 inline-block px-6 py-3 
+             bg-blue-600 text-white rounded-lg shadow 
+             hover:bg-blue-700 transition"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  Download Resume
+</motion.a>
       </motion.div>
     </div>
   );
