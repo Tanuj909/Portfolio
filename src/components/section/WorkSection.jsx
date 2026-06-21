@@ -43,7 +43,7 @@ const ProjectModal = ({ project, onClose }) => {
           exit={{ opacity: 0, scale: 0.95, y: 30 }}
           transition={{ type: "spring", duration: 0.5 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 max-w-2xl w-full p-6 md:p-8 overflow-y-auto max-h-[90vh] flex flex-col justify-between"
+          className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 max-w-2xl w-full p-6 md:p-8 overflow-y-auto custom-scrollbar max-h-[90vh] flex flex-col justify-between"
         >
           {/* Close Button */}
           <button
