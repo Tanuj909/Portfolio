@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 
 const Hero = ({onWorkClick}) => {
   return (
-    <div className="w-full min-h-screen md:h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-20 pt-20 md:pt-0 bg-white overflow-hidden">
+    <div className="w-full min-h-screen md:h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-20 pt-20 md:pt-0 pb-12 md:pb-24 bg-white overflow-hidden">
 
       {/* LEFT SIDE – IMAGE WITH RING */}
       <motion.div
@@ -56,12 +56,12 @@ const Hero = ({onWorkClick}) => {
           />
         </div>
 
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 w-full">
           <motion.button
             onClick={onWorkClick}
-            className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition text-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-600/25 transition-all text-center cursor-pointer"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             View My Work
           </motion.button>
@@ -71,9 +71,9 @@ const Hero = ({onWorkClick}) => {
             download
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition text-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="w-full sm:w-auto px-6 py-3 bg-white hover:bg-gray-50 text-gray-800 rounded-xl font-semibold border border-gray-200 shadow-sm hover:border-gray-300 transition-all text-center cursor-pointer"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             Download Resume
           </motion.a>
