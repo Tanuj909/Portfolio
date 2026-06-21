@@ -99,7 +99,7 @@ const Layout = ({ children }) => {
 
       {/* RIGHT CONTENT (SCROLL CONTAINER - Snap only on md+) */}
       <div
-        className="flex-1 w-full ml-0 md:ml-[200px] min-h-[calc(100vh-4rem)] md:h-screen md:overflow-y-scroll overflow-x-hidden md:snap-y md:snap-mandatory scroll-smooth"
+        className="flex-1 w-full ml-0 md:ml-[200px] min-h-[calc(100vh-4rem)] md:h-screen overflow-visible md:overflow-y-auto overflow-x-hidden md:snap-y md:snap-mandatory scroll-smooth"
       >
         {children}
       </div>
