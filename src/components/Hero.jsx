@@ -9,7 +9,7 @@ import Sidebar from "./Sidebar";
 const Hero = ({onWorkClick}) => {
   return (
     <div className="w-full min-h-screen md:h-screen flex items-center justify-center px-6 md:px-20 pt-20 md:pt-0 bg-white overflow-hidden">
-      <div className="w-full flex flex-col md:flex-row items-center justify-center -translate-y-20 md:-translate-y-36">
+      <div className="w-full flex flex-col md:flex-row items-center justify-center -translate-y-20 md:-translate-y-8">
         {/* LEFT SIDE – IMAGE WITH RING */}
         <motion.div
           className="w-full md:w-1/2 flex justify-center relative mb-4 md:mb-0"
