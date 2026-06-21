@@ -9,11 +9,11 @@ export default function AboutUsSection() {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8 bg-white w-full">
+    <div className="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 sm:px-8 bg-white w-full">
       <div className="w-full max-w-5xl">
 
         {/* Profile Card */}
-        <div className="flex items-center gap-4 border border-gray-200 rounded-2xl p-5 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 border border-gray-200 rounded-2xl p-5 mb-8">
           <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-medium text-lg flex-shrink-0">
             FS
           </div>
@@ -25,7 +25,7 @@ export default function AboutUsSection() {
               <span className="text-xs text-gray-400">Open to opportunities</span>
             </div>
           </div>
-          <div className="ml-auto text-right">
+          <div className="sm:ml-auto text-left sm:text-right mt-2 sm:mt-0">
             <p className="text-xs text-gray-400 mb-1">Experience</p>
             <p className="text-base font-medium text-gray-900">~1 year</p>
           </div>
@@ -37,7 +37,7 @@ export default function AboutUsSection() {
         </span>
 
         {/* Heading */}
-        <h1 className="text-4xl font-medium text-gray-900 leading-snug mb-4">
+        <h1 className="text-2xl sm:text-4xl font-semibold text-gray-900 leading-snug mb-4">
           Crafting scalable &amp; high-performance web applications
         </h1>
 

@@ -12,30 +12,30 @@ const Home = () => {
   const workRef = useRef(null);
 
   return (
-    <div className="h-screen snap-y snap-mandatory scroll-smooth">
+    <div className="w-full flex flex-col">
 
-<section id="hero" className="h-screen snap-start">
-  <Hero onWorkClick={() => workRef.current?.scrollIntoView({ behavior: "smooth" })} />
-</section>
+      <section id="hero" className="min-h-screen md:h-screen md:snap-start flex flex-col items-center justify-center w-full">
+        <Hero onWorkClick={() => workRef.current?.scrollIntoView({ behavior: "smooth" })} />
+      </section>
 
-<section id="about" className="h-screen snap-start">
-  <About />
-</section>
+      <section id="about" className="min-h-screen md:h-screen md:snap-start flex flex-col items-center justify-center w-full">
+        <About />
+      </section>
 
-<section ref={workRef} id="work" className="h-screen snap-start">
-  <WorkSection />
-</section>
+      <section ref={workRef} id="work" className="min-h-screen md:h-screen md:snap-start flex flex-col items-center justify-center w-full">
+        <WorkSection />
+      </section>
 
-<section id="skills" className="h-screen snap-start">
-  <Skills />
-</section>
+      <section id="skills" className="min-h-screen md:h-screen md:snap-start flex flex-col items-center justify-center w-full">
+        <Skills />
+      </section>
 
-<section id="contact" className="h-screen snap-start">
-  <Contact />
-</section>
+      <section id="contact" className="min-h-screen md:h-screen md:snap-start flex flex-col items-center justify-center w-full">
+        <Contact />
+      </section>
 
     </div>
-  )
-}
+  );
+};
 
 export default Home

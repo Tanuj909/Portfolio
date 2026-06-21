@@ -328,7 +328,7 @@ const WorkSection = () => {
   }, [current, activeModalProject]);
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-7xl bg-white py-20 overflow-hidden">
+    <div ref={containerRef} className="relative w-full max-w-7xl bg-white pt-16 pb-24 md:py-20 px-4 md:px-8 overflow-hidden">
       <div className="text-center mb-16 px-4">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
           Featured Work
@@ -389,7 +389,7 @@ const WorkSection = () => {
                 </div>
               )}
 
-              <div className="flex items-center gap-4 pt-4">
+              <div className="flex flex-wrap items-center gap-3 pt-4">
                 {projects[current].github && (
                   <a
                     href={projects[current].github}

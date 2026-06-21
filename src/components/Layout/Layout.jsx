@@ -1,14 +1,18 @@
-import React from 'react'
-import Sidebar from '../Sidebar'
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Sidebar from '../Sidebar';
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = ({ children }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const steps = ["hero", "about", "work", "skills", "contact"];
+  const stepLabels = ["Hero", "About", "Work", "Skills", "Contact"];
 
-  // Scroll to section when sidebar item is clicked
+  // Scroll to section when sidebar/menu item is clicked
   const handleStepChange = (index) => {
     setActiveStep(index);
+    setIsMobileMenuOpen(false);
     const sectionId = steps[index];
     const element = document.getElementById(sectionId);
     if (element) {
@@ -16,12 +20,6 @@ const Layout = ({ children }) => {
     }
   };
 
-  // Improved scroll logic to avoid "stuttering" or fighting with click scroll is usually handled by 
-  // temporarily disabling scroll listener or just letting it settle. 
-  // For this simple implementation, the above `useEffect` might fight if not careful, 
-  // but let's try a standard IntersectionObserver approach which is often cleaner.
-
-  // Re-writing the useEffect to be more robust with IntersectionObserver
   React.useEffect(() => {
     const observerOptions = {
       root: null,
@@ -51,28 +49,63 @@ const Layout = ({ children }) => {
   }, [steps]);
 
   return (
-    <div className="flex">
+    <div className="min-h-screen flex flex-col md:flex-row relative bg-white w-full overflow-x-hidden">
 
-      {/* LEFT SIDEBAR */}
-      {/* FIXED SIDEBAR */}
-      <div className="w-[200px] fixed left-8 top-0 min-h-screen 
-                      flex flex-col justify-center p-4">
+      {/* MOBILE STICKY NAVBAR (Only visible < md) */}
+      <header className="md:hidden sticky top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-gray-100 flex items-center justify-between px-6 z-40">
+        <span className="font-bold text-xl text-gray-900 tracking-tight">
+          Portfolio
+        </span>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 text-gray-700 hover:text-blue-600 focus:outline-none transition-colors"
+          aria-label="Toggle mobile menu"
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </header>
 
+      {/* MOBILE DROPDOWN MENU */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-200 z-30 flex flex-col p-4 space-y-3 shadow-lg"
+          >
+            {stepLabels.map((label, index) => (
+              <button
+                key={index}
+                onClick={() => handleStepChange(index)}
+                className={`py-3 px-4 text-left font-medium rounded-xl transition-all ${
+                  activeStep === index
+                    ? "bg-blue-50 text-blue-600"
+                    : "text-gray-600 hover:bg-gray-50"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* LEFT SIDEBAR (Only visible on desktop md+) */}
+      <div className="hidden md:flex w-[200px] fixed left-8 top-0 min-h-screen flex-col justify-center p-4 z-30">
         <Sidebar activeStep={activeStep} onStepChange={handleStepChange} />
-
       </div>
-      {/* RIGHT CONTENT */}
-      {/* RIGHT CONTENT (SCROLL SNAP CONTAINER) */}
+
+      {/* RIGHT CONTENT (SCROLL CONTAINER - Snap only on md+) */}
       <div
-        className="flex-1 ml-[200px] h-screen overflow-y-scroll overflow-x-hidden
-             snap-y snap-mandatory scroll-smooth"
+        className="flex-1 w-full ml-0 md:ml-[200px] min-h-[calc(100vh-4rem)] md:h-screen md:overflow-y-scroll overflow-x-hidden md:snap-y md:snap-mandatory scroll-smooth"
       >
         {children}
       </div>
 
-
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

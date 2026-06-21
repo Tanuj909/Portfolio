@@ -57,7 +57,7 @@ const Skills = () => {
             </h2>
 
             {/* CATEGORY BUTTONS (Preserved Style) */}
-            <div className="flex flex-wrap justify-center gap-4 mb-20 relative z-20">
+            <div className="flex flex-wrap justify-center gap-4 mb-10 md:mb-20 relative z-20">
                 {categories.map((category) => (
                     <button
                         key={category}
@@ -73,8 +73,8 @@ const Skills = () => {
                 ))}
             </div>
 
-            {/* ORBITAL LAYOUT CONTAINER */}
-            <div className="relative w-[400px] h-[400px] md:w-[500px] md:h-[500px] flex items-center justify-center">
+            {/* ORBITAL LAYOUT CONTAINER (Desktop only md+) */}
+            <div className="hidden md:flex relative w-[500px] h-[500px] items-center justify-center">
 
                 {/* Central Category Hub */}
                 <motion.div
@@ -131,8 +131,33 @@ const Skills = () => {
                         })}
                     </motion.div>
                 </AnimatePresence>
+            </div>
 
-                {/* Mobile Fallback Warning (Optional visual check, mostly handled by responsive sizing) */}
+            {/* MOBILE LAYOUT CONTAINER (Visible < md) */}
+            <div className="md:hidden w-full px-4 flex flex-wrap justify-center gap-3 relative z-10">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeCategory}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex flex-wrap justify-center gap-3 w-full"
+                    >
+                        {skillsData[activeCategory].map((skill, index) => (
+                            <motion.div
+                                key={skill}
+                                className="px-4 py-3 bg-white rounded-2xl shadow border border-gray-100 text-sm font-semibold text-gray-800 flex items-center gap-2"
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.3, delay: index * 0.05 }}
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                                {skill}
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
         </div>
