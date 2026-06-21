@@ -28,7 +28,7 @@ const projects = [
   },
   {
     id: 2,
-    title: "On-Demand Salon Discovery & Booking Platform",
+    title: "Salon Saas PlatForm",
     techStack: ["Next.js", "Tailwind CSS", "OpenStreetMap", "Spring Boot", "Spring Security", "PostgreSQL", "PostGIS", "Firebase", "JWT"],
     description:
       "Developed a full-stack salon discovery and appointment booking platform. The frontend is built using Next.js and Tailwind CSS, integrating OpenStreetMap with user geolocation tracking to help users discover nearby salons. The backend is built with Spring Boot and Spring Security, utilizing PostgreSQL and PostGIS for optimized geospatial query calculations. The platform features JWT-based stateless authentication, Firebase storage for stylist profiles and salon media, automated email notifications for bookings and invoices, and is fully deployed on Hostinger VPS.",

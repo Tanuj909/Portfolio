@@ -325,35 +325,40 @@ const WorkSection = () => {
               className="space-y-8"
             >
               <div>
-                <h3 className="text-4xl font-bold text-gray-900 mb-4">{projects[current].title}</h3>
-                <p className="text-lg text-gray-600 leading-relaxed line-clamp-2">
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{projects[current].title}</h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed line-clamp-2">
                   {projects[current].description}
                 </p>
               </div>
 
               {projects[current].techStack && (
-                <div className="flex flex-wrap gap-2">
-                  {projects[current].techStack.map((tech, i) => (
+                <div className="flex flex-wrap gap-1.5">
+                  {projects[current].techStack.slice(0, 5).map((tech, i) => (
                     <span
                       key={i}
-                      className="px-4 py-1.5 bg-gray-100 text-gray-700 text-sm font-semibold rounded-full border border-gray-200"
+                      className="px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-md border border-gray-200"
                     >
                       {tech}
                     </span>
                   ))}
+                  {projects[current].techStack.length > 5 && (
+                    <span className="px-2.5 py-1 text-gray-400 text-xs font-semibold">
+                      +{projects[current].techStack.length - 5} more
+                    </span>
+                  )}
                 </div>
               )}
 
-              <div className="flex flex-wrap items-center gap-3 pt-4">
+              <div className="flex items-center gap-2 pt-4 w-full">
                 {projects[current].github && (
                   <a
                     href={projects[current].github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-medium transition-colors"
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-xl text-xs font-medium transition-colors"
                   >
-                    <Github className="w-5 h-5" />
-                    View Code
+                    <Github className="w-4 h-4" />
+                    Code
                   </a>
                 )}
                 {projects[current].demo && (
@@ -361,16 +366,16 @@ const WorkSection = () => {
                     href={projects[current].demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors shadow-lg shadow-blue-600/20"
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-medium transition-colors shadow-lg shadow-blue-600/10"
                   >
-                    <ExternalLink className="w-5 h-5" />
+                    <ExternalLink className="w-4 h-4" />
                     Live Demo
                   </a>
                 )}
 
                 <button
                   onClick={() => setActiveModalProject(projects[current])}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-md transition-colors"
+                  className="px-3.5 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-xl text-xs font-medium transition-colors ml-auto"
                 >
                   More?
                 </button>
