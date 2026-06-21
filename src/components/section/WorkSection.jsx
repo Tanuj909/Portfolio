@@ -332,18 +332,18 @@ const WorkSection = () => {
               </div>
 
               {projects[current].techStack && (
-                <div className="flex flex-wrap gap-1.5">
-                  {projects[current].techStack.slice(0, 5).map((tech, i) => (
+                <div className="flex items-center flex-nowrap gap-1.5 overflow-hidden">
+                  {projects[current].techStack.slice(0, 3).map((tech, i) => (
                     <span
                       key={i}
-                      className="px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-md border border-gray-200"
+                      className="px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-md border border-gray-200 whitespace-nowrap"
                     >
                       {tech}
                     </span>
                   ))}
-                  {projects[current].techStack.length > 5 && (
-                    <span className="px-2.5 py-1 text-gray-400 text-xs font-semibold">
-                      +{projects[current].techStack.length - 5} more
+                  {projects[current].techStack.length > 3 && (
+                    <span className="px-2.5 py-1 text-gray-400 text-xs font-semibold whitespace-nowrap">
+                      +{projects[current].techStack.length - 3} more
                     </span>
                   )}
                 </div>
@@ -389,7 +389,7 @@ const WorkSection = () => {
       <button
         onClick={prevSlide}
         disabled={current === 0}
-        className="absolute top-[50%] left-2 md:left-4 -translate-y-1/2 p-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 z-20"
+        className="hidden lg:flex absolute top-[50%] left-2 md:left-4 -translate-y-1/2 p-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 z-20"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -398,7 +398,7 @@ const WorkSection = () => {
       <button
         onClick={nextSlide}
         disabled={current === projects.length - 1}
-        className="absolute top-[50%] right-2 md:right-4 -translate-y-1/2 p-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 z-20"
+        className="hidden lg:flex absolute top-[50%] right-2 md:right-4 -translate-y-1/2 p-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 z-20"
         aria-label="Next slide"
       >
         <ChevronRight className="w-5 h-5" />
