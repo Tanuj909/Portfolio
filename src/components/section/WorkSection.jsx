@@ -238,10 +238,10 @@ const ProjectModal = ({ project, onClose }) => {
 const WorkSection = () => {
   const [current, setCurrent] = useState(0);
   const [activeModalProject, setActiveModalProject] = useState(null);
-  const scrollTimeout = useRef(null);
-  const containerRef = useRef(null);
-  const isUnlocked = useRef(false);
-  const unlockTimer = useRef(null);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
 
   const nextSlide = () => {
     setCurrent((prev) => (prev < projects.length - 1 ? prev + 1 : prev));
@@ -252,83 +252,33 @@ const WorkSection = () => {
   };
 
   useEffect(() => {
-    isUnlocked.current = false;
     setActiveModalProject(null);
-    if (unlockTimer.current) clearTimeout(unlockTimer.current);
   }, [current]);
 
-  // 🚀 SCROLL HANDLER
-  useEffect(() => {
-    const handleScroll = (event) => {
-      // If modal is active, bypass page-level carousel scroll hijacking
-      if (activeModalProject) return;
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
 
-      const isScrollingDown = event.deltaY > 0;
-      const isAtLastSlide = current === projects.length - 1;
-      const isAtFirstSlide = current === 0;
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
 
-      // ===============================
-      // 🔒 EDGE LOCK LOGIC
-      // ===============================
-
-      // Check if we are trying to leave the carousel boundary
-      if ((isAtLastSlide && isScrollingDown) || (isAtFirstSlide && !isScrollingDown)) {
-
-        // If explicitly unlocked by a pause/timeout, allow the natural scroll (exit section)
-        if (isUnlocked.current) {
-          return;
-        }
-
-        // otherwise, BLOCK the scroll and start/reset the "deliberate pause" timer
-        event.preventDefault();
-
-
-        if (unlockTimer.current) clearTimeout(unlockTimer.current);
-
-        // User must stop scrolling for 100ms to unlock the exit
-        unlockTimer.current = setTimeout(() => {
-          isUnlocked.current = true;
-        }, 100);
-
-        return;
-      }
-
-      // ===============================
-      // 🎠 NORMAL CAROUSEL SCROLL
-      // ===============================
-
-      // If we are inside the carousel moving slides, always block page scroll
-      isUnlocked.current = false; // Re-lock just in case
-      event.preventDefault();
-
-      if (Math.abs(event.deltaY) > 20 && !scrollTimeout.current) {
-        if (isScrollingDown) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-
-        scrollTimeout.current = setTimeout(() => {
-          scrollTimeout.current = null;
-        }, 700);
-      }
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("wheel", handleScroll, { passive: false });
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
     }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("wheel", handleScroll);
-      }
-      if (unlockTimer.current) clearTimeout(unlockTimer.current);
-    };
-  }, [current, activeModalProject]);
+  };
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-7xl bg-white pt-16 pb-24 md:py-20 px-4 md:px-8 overflow-hidden">
+    <div className="relative w-full max-w-7xl bg-white pt-16 pb-24 md:py-20 px-4 md:px-8 overflow-hidden">
       <div className="text-center mb-16 px-4">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
           Featured Work
@@ -339,7 +289,12 @@ const WorkSection = () => {
       </div>
 
       {/* SLIDE WRAPPER */}
-      <div className="w-full flex justify-center px-4 md:px-12">
+      <div 
+        className="w-full flex justify-center px-4 md:px-12"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         <AnimatePresence mode="wait">
           <div key={current} className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
@@ -426,21 +381,23 @@ const WorkSection = () => {
       </div>
 
       {/* CONTROLS */}
-      {/* <button
+      <button
         onClick={prevSlide}
-        className="absolute top-[60%] lg:top-1/2 left-4 md:left-8 -translate-y-1/2 p-3 bg-white hover:bg-gray-50 text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-110 z-10"
+        disabled={current === 0}
+        className="absolute top-[50%] left-2 md:left-4 -translate-y-1/2 p-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 z-20"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5" />
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute top-[60%] lg:top-1/2 right-4 md:right-8 -translate-y-1/2 p-3 bg-white hover:bg-gray-50 text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-110 z-10"
+        disabled={current === projects.length - 1}
+        className="absolute top-[50%] right-2 md:right-4 -translate-y-1/2 p-2.5 bg-white/90 hover:bg-white text-gray-800 rounded-full shadow-lg border border-gray-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 z-20"
         aria-label="Next slide"
       >
-        <ChevronRight className="w-6 h-6" />
-      </button> */}
+        <ChevronRight className="w-5 h-5" />
+      </button>
 
       {/* INDICATORS */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
