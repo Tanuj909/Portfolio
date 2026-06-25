@@ -1,5 +1,4 @@
 import React from "react";
-import profileImage from "../assets/Images/pfp.jpg";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
@@ -22,7 +21,7 @@ const Hero = ({onWorkClick}) => {
 
           {/* IMAGE */}
           <motion.img
-            src={profileImage}
+            src="/tanuj.png"
             alt="Tanuj"
             className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full object-cover shadow-2xl relative z-10"
             initial={{ y: -20, opacity: 0 }}
