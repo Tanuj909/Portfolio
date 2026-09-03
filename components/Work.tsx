@@ -93,7 +93,7 @@ export default function Work({ onSelectProject }: WorkProps) {
             {/* Screenshot Container with subtle zoom on card hover */}
             <div className="relative flex-1 w-full overflow-hidden bg-black/40">
               <img
-                src="/salon/home.png"
+                src="/Salon/home.png"
                 alt="Salon Multi-Tenant SaaS Platform"
                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
