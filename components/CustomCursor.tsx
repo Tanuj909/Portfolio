@@ -71,22 +71,20 @@ export default function CustomCursor() {
         transform: "translate(-50%, -50%)",
       }}
     >
-      {/* Outer Glow Ring */}
+      {/* Outer Subtle Follower Ring */}
       <div
         className={`rounded-full transition-all duration-200 border ${
           hovered
-            ? "w-10 h-10 border-[#00F0FF] bg-[#00F0FF]/15 scale-110 shadow-[0_0_16px_rgba(0,240,255,0.4)]"
+            ? "w-9 h-9 border-[#75405F] bg-[#F8D5C9]/35 scale-110 shadow-[0_0_12px_rgba(117,64,95,0.2)]"
             : clicked
-            ? "w-6 h-6 border-[#00F0FF] bg-[#00F0FF]/30 scale-90"
-            : "w-7 h-7 border-white/20 bg-transparent"
+            ? "w-6 h-6 border-[#4B263F] bg-[#B58AA8]/40 scale-90"
+            : "w-7 h-7 border-[#B58AA8]/45 bg-transparent"
         }`}
       />
       {/* Center Dot */}
       <div
         className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-150 ${
-          hovered
-            ? "w-1.5 h-1.5 bg-[#00F0FF]"
-            : "w-1 h-1 bg-white"
+          hovered ? "w-1.5 h-1.5 bg-[#4B263F]" : "w-1 h-1 bg-[#75405F]"
         }`}
       />
     </div>

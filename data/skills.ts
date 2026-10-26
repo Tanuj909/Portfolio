@@ -1,84 +1,55 @@
-export interface TechCategory {
-  id: string;
+export interface SkillItem {
   name: string;
-  tagline: string;
-  coreNode: string;
-  coreSubtitle: string;
-  iconType: "backend" | "database" | "tools" | "frontend";
-  skills: string[];
+  category: "backend" | "database" | "frontend" | "tools";
+  badgeTheme: "peach" | "blush" | "mauve" | "lavender" | "cream";
 }
 
-export const skillsData: TechCategory[] = [
+export interface SkillCategory {
+  id: string;
+  name: string;
+  description: string;
+  skills: SkillItem[];
+}
+
+export const allSkills: SkillItem[] = [
+  { name: "Java", category: "backend", badgeTheme: "peach" },
+  { name: "Spring Boot", category: "backend", badgeTheme: "blush" },
+  { name: "Spring Security", category: "backend", badgeTheme: "mauve" },
+  { name: "Hibernate / JPA", category: "backend", badgeTheme: "lavender" },
+  { name: "REST APIs", category: "backend", badgeTheme: "cream" },
+  { name: "PostgreSQL", category: "database", badgeTheme: "peach" },
+  { name: "MySQL", category: "database", badgeTheme: "blush" },
+  { name: "Redis", category: "database", badgeTheme: "mauve" },
+  { name: "React.js", category: "frontend", badgeTheme: "lavender" },
+  { name: "Flutter", category: "frontend", badgeTheme: "cream" },
+  { name: "JavaScript", category: "frontend", badgeTheme: "peach" },
+  { name: "TypeScript", category: "frontend", badgeTheme: "blush" },
+  { name: "Git", category: "tools", badgeTheme: "mauve" },
+];
+
+export const skillCategories: SkillCategory[] = [
   {
     id: "backend",
-    name: "BACKEND & APIS",
-    tagline: "High-Throughput Microservices & Scalable REST APIs",
-    coreNode: "SPRING BOOT & JAVA",
-    coreSubtitle: "Primary Backend Engine",
-    iconType: "backend",
-    skills: [
-      "RESTful APIs",
-      "Spring Security",
-      "JWT & RBAC",
-      "JPA / Hibernate",
-      "Microservices",
-      "Spring MVC",
-      "JDBC & Servlets",
-      "Global Exception Handling",
-    ],
+    name: "Backend & Systems",
+    description: "Enterprise Java services, microservices, and secure API architectures.",
+    skills: allSkills.filter((s) => s.category === "backend"),
   },
   {
     id: "database",
-    name: "DATABASES & CACHING",
-    tagline: "Relational Modeling, Spatial Indexing & In-Memory Stores",
-    coreNode: "POSTGRESQL & REDIS",
-    coreSubtitle: "Data & Caching Hub",
-    iconType: "database",
-    skills: [
-      "MySQL",
-      "Redis Caching",
-      "SQL Query Optimization",
-      "PostGIS (Geo Queries)",
-      "Database Indexing",
-      "Redis Pub/Sub",
-      "Schema Design",
-      "Transaction Management",
-    ],
-  },
-  {
-    id: "tools",
-    name: "DEVOPS & TOOLS",
-    tagline: "Containers, Automated Delivery & API Validation",
-    coreNode: "DOCKER & CI/CD",
-    coreSubtitle: "Infrastructure & Automation",
-    iconType: "tools",
-    skills: [
-      "Git & GitHub",
-      "Bitbucket",
-      "Postman (API Testing)",
-      "Maven Build",
-      "Linux VPS Hosting",
-      "systemd Services",
-      "MySQL Workbench",
-      "VS Code",
-    ],
+    name: "Databases & Caching",
+    description: "Relational persistence, query optimization, and high-speed memory stores.",
+    skills: allSkills.filter((s) => s.category === "database"),
   },
   {
     id: "frontend",
-    name: "WEB & FRONTEND",
-    tagline: "Modern Dynamic Web Applications & Responsive UI",
-    coreNode: "NEXT.JS & REACT",
-    coreSubtitle: "Frontend Application Core",
-    iconType: "frontend",
-    skills: [
-      "Tailwind CSS",
-      "TypeScript",
-      "JavaScript (ES6+)",
-      "Responsive Web Design",
-      "HTML5 Semantic",
-      "Modern CSS3",
-      "Client API Integration",
-      "UI Component Architecture",
-    ],
+    name: "Web & Mobile",
+    description: "Modern, responsive client applications and cross-platform interfaces.",
+    skills: allSkills.filter((s) => s.category === "frontend"),
+  },
+  {
+    id: "tools",
+    name: "Tooling & Version Control",
+    description: "Collaborative development, versioning, and continuous delivery.",
+    skills: allSkills.filter((s) => s.category === "tools"),
   },
 ];

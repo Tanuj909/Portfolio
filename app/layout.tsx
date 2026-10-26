@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -23,28 +23,34 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
+});
+
 export const viewport: Viewport = {
-  themeColor: "#08090B",
-  colorScheme: "dark",
+  themeColor: "#FFF8F2",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
-  title: "Tanuj Kashyap — Software Developer & Systems Engineer",
+  title: "Tanuj Kashyap — Software Developer",
   description:
-    "Software Developer building scalable backend architectures, high-performance web applications, and resilient mobile products for real businesses and clients.",
+    "Software Developer building scalable web and mobile applications using Java, Spring Boot, React, and modern technologies.",
   keywords: [
     "Software Developer",
-    "Backend Engineer",
     "Java",
     "Spring Boot",
-    "PostgreSQL",
+    "React",
     "Flutter",
-    "Full Stack Developer",
+    "PostgreSQL",
+    "MySQL",
+    "Redis",
     "Tanuj Kashyap",
-    "Systems Architecture",
-    "Distributed Systems",
   ],
   authors: [{ name: "Tanuj Kashyap" }],
   creator: "Tanuj Kashyap",
@@ -52,16 +58,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://tanujkashyap.dev",
-    title: "Tanuj Kashyap — Software Developer & Systems Engineer",
+    title: "Tanuj Kashyap — Software Developer",
     description:
-      "Software Developer building scalable backend architectures, high-performance web applications, and resilient mobile products.",
+      "Software Developer building scalable web and mobile applications using Java, Spring Boot, React, and modern technologies.",
     siteName: "Tanuj Kashyap Portfolio",
   },
   twitter: {
     card: "summary_large_image",
     title: "Tanuj Kashyap — Software Developer",
     description:
-      "Software Developer building scalable backend architectures, high-performance web applications, and resilient mobile products.",
+      "Software Developer building scalable web and mobile applications using Java, Spring Boot, React, and modern technologies.",
   },
   robots: {
     index: true,
@@ -77,9 +83,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} dark scroll-smooth`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${caveat.variable} scroll-smooth`}
     >
-      <body className="min-h-screen bg-[#08090B] text-[#F4F4F5] antialiased selection:bg-[#00F0FF]/20 selection:text-[#00F0FF] relative font-sans">
+      <body className="min-h-screen bg-[#FFF8F2] text-[#30252E] antialiased selection:bg-[#F3C6C8] selection:text-[#4B263F] relative font-sans">
         {children}
       </body>
     </html>

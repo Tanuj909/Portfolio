@@ -9,8 +9,8 @@ export interface ProjectItem {
   id: string;
   title: string;
   tagline: string;
-  category: "BACKEND";
-  projectType: "CLIENT WORK";
+  category: "BACKEND" | "FULLSTACK" | "FRONTEND";
+  projectType: string;
   year: string;
   role: string;
   client?: string;
@@ -22,11 +22,13 @@ export interface ProjectItem {
   snapshots?: ProjectSnapshot[];
   technologies: string[];
   liveUrl?: string;
+  githubUrl?: string;
   metrics: {
     label: string;
     value: string;
   }[];
   accentColor: string;
+  badgeTheme: "peach" | "blush" | "mauve" | "lavender" | "cream";
   keyPoints: {
     title: string;
     description: string;
@@ -40,49 +42,47 @@ export interface ProjectItem {
 
 export const projectsData: ProjectItem[] = [
   {
-    id: "logistics-porter-platform",
-    title: "Logistics Platform (Porter-like App)",
-    tagline: "High-frequency Redis driver broadcast, real-time routing, Razorpay wallet & notification engine",
+    id: "riderzz",
+    title: "Riderzz",
+    tagline: "Logistics and ride-booking application with real-time driver broadcast & routing",
     category: "BACKEND",
-    projectType: "CLIENT WORK",
-    year: "August 2026 – Present",
+    projectType: "CLIENT DELIVERY",
+    year: "2026",
     role: "Java Backend Developer",
     client: "Logistics Enterprise Client",
-    industry: "On-Demand Logistics & Fleet Routing",
+    industry: "On-Demand Logistics & Fleet Dispatch",
     duration: "Client Delivery",
     description:
-      "A scalable on-demand logistics platform developed and delivered for a client, featuring real-time driver broadcasting, route optimization, automated notification dispatch, and driver wallet management.",
+      "A logistics and ride-booking application featuring real-time driver broadcasting, route optimization, automated notification dispatch, and driver wallet management.",
     featured: true,
     technologies: [
       "Java",
       "Spring Boot",
       "Spring Security",
       "PostgreSQL",
-      "SQL",
       "Redis",
-      "Notification Service",
       "Google Routes API",
       "Razorpay",
       "Linux VPS",
-      "systemd",
     ],
     liveUrl: "https://portfolio-seven-dun-14.vercel.app/",
-    accentColor: "#00F0FF",
+    accentColor: "#75405F",
+    badgeTheme: "plum" as any,
     metrics: [
       { label: "DB Read/Write Reduction", value: "90%+" },
       { label: "Driver Broadcast Latency", value: "< 15ms" },
-      { label: "Wallet Transaction Accuracy", value: "100.0%" },
+      { label: "Wallet Transaction Accuracy", value: "100%" },
     ],
     keyPoints: [
       {
         title: "Redis In-Memory Driver Broadcast",
         description:
-          "Built a Redis-based nearby driver broadcast system with PostgreSQL fallback. Reduced database reads and writes by over 90% by handling high-frequency driver location updates in Redis RAM.",
+          "Engineered a Redis-based nearby driver broadcast system with PostgreSQL fallback. Reduced database reads and writes by over 90% by handling high-frequency driver location updates directly in Redis.",
       },
       {
         title: "Google Routes API Integration",
         description:
-          "Integrated Google Routes API for dynamic route optimization, precise polyline mapping, distance calculation, and accurate travel time estimation between pickup and drop points.",
+          "Integrated Google Routes API for dynamic route optimization, distance computation, and precise travel time estimation between pickup and drop points.",
       },
       {
         title: "Razorpay Secure Driver Wallet",
@@ -90,36 +90,31 @@ export const projectsData: ProjectItem[] = [
           "Integrated Razorpay payment gateway to enable secure driver wallet recharges, automated trip commission deductions, and ledger tracking.",
       },
       {
-        title: "Real-Time Notification Service",
+        title: "Notification Service & Dispatch",
         description:
           "Integrated automated Notification Service to broadcast instant ride dispatch alerts, order confirmations, and driver arrival notifications.",
       },
-      {
-        title: "Linux VPS Deployment with systemd",
-        description:
-          "Deployed and managed the Spring Boot application on a Linux VPS using PostgreSQL, Redis, and automated systemd service daemons for 24/7 reliability.",
-      },
     ],
     techStackBreakdown: [
-      { category: "Backend Engine", skills: ["Java", "Spring Boot", "Spring Security", "REST APIs", "Notification Service"] },
-      { category: "Database & Cache", skills: ["Redis (In-Memory)", "PostgreSQL", "SQL Optimization", "PostGIS"] },
-      { category: "Third-Party Integrations", skills: ["Google Routes API", "Razorpay Payment Gateway"] },
-      { category: "Deployment & Server", skills: ["Linux VPS", "systemd Daemons", "Git", "Maven"] },
+      { category: "Backend Engine", skills: ["Java", "Spring Boot", "Spring Security", "REST APIs"] },
+      { category: "Database & Cache", skills: ["Redis (In-Memory)", "PostgreSQL", "SQL Optimization"] },
+      { category: "Third-Party APIs", skills: ["Google Routes API", "Razorpay Payment Gateway"] },
+      { category: "Deployment", skills: ["Linux VPS", "systemd Daemons", "Git"] },
     ],
     highlights: [
       "Reduced database read/write pressure by over 90% via Redis in-memory location caching.",
-      "Instantaneous sub-15ms nearby driver lookup and broadcast dispatch.",
+      "Sub-15ms nearby driver lookup and dispatch notification broadcast.",
       "100% financial transaction accuracy across driver wallet recharges and payouts.",
-      "High uptime production deployment running on Linux VPS with systemd.",
+      "Reliable production deployment running on Linux VPS with automated systemd daemons.",
     ],
   },
   {
     id: "salon-saas-platform",
     title: "Salon Platform (Multi-Tenant SaaS)",
-    tagline: "Multi-store management, staff commission tracking, PostGIS geolocation, booking engine & notification service",
-    category: "BACKEND",
-    projectType: "CLIENT WORK",
-    year: "June 2026 – July 2026",
+    tagline: "Multi-store management, staff commission tracking, PostGIS geolocation & booking engine",
+    category: "FULLSTACK",
+    projectType: "CLIENT DELIVERY",
+    year: "2026",
     role: "Backend & API Engineer",
     client: "Beauty & Wellness Enterprise",
     industry: "Multi-Tenant SaaS / Booking Management",
@@ -199,18 +194,16 @@ export const projectsData: ProjectItem[] = [
     technologies: [
       "Java",
       "Spring Boot",
-      "SQL",
       "PostgreSQL",
-      "PostGIS",
-      "Spring Security (JWT)",
-      "Notification Service",
-      "Next.js",
-      "JavaScript",
+      "Spring Security",
+      "Hibernate / JPA",
+      "React.js",
       "Tailwind CSS",
       "REST APIs",
     ],
     liveUrl: "https://portfolio-seven-dun-14.vercel.app/",
-    accentColor: "#10B981",
+    accentColor: "#75405F",
+    badgeTheme: "plum" as any,
     metrics: [
       { label: "Tenant Isolation", value: "100% RBAC" },
       { label: "Booking API Latency", value: "< 25ms" },
@@ -237,28 +230,82 @@ export const projectsData: ProjectItem[] = [
         description:
           "Utilized SQL, PostgreSQL, and PostGIS for efficient geo-spatial indexing, customer distance calculations, and nearby store branch discovery.",
       },
-      {
-        title: "Automated Notification Service",
-        description:
-          "Integrated automated Notification Service to send real-time appointment booking confirmations, schedule updates, and SMS/Email reminders to clients.",
-      },
-      {
-        title: "Frontend with Next.js & JavaScript",
-        description:
-          "Engineered the modern client storefront, appointment booking flow, and responsive salon dashboards using Next.js and JavaScript with Tailwind CSS.",
-      },
     ],
     techStackBreakdown: [
-      { category: "Backend Engine", skills: ["Java", "Spring Boot", "Spring Security (JWT)", "JPA / Hibernate", "Notification Service", "REST APIs"] },
+      { category: "Backend Engine", skills: ["Java", "Spring Boot", "Spring Security (JWT)", "JPA / Hibernate", "REST APIs"] },
       { category: "Database & Spatial", skills: ["PostgreSQL", "SQL Optimization", "PostGIS (Distance Operations)"] },
-      { category: "Frontend Client", skills: ["Next.js", "JavaScript", "React.js", "Tailwind CSS", "Responsive UI"] },
+      { category: "Frontend Client", skills: ["React.js", "JavaScript", "Tailwind CSS", "Responsive UI"] },
       { category: "Tooling & APIs", skills: ["Postman", "Git", "Maven", "Linux VPS"] },
     ],
     highlights: [
       "100% role-based security isolation across multi-store manager and staff tiers.",
       "Sub-25ms response time for advance slot booking and availability checks.",
-      "Automated Notification Service for instant booking and schedule reminders.",
-      "Fast, responsive Next.js & JavaScript frontend connected to Spring Boot REST APIs.",
+      "11 verified production screen snapshots included in the interactive case study.",
+      "Responsive React.js & JavaScript frontend connected to Spring Boot REST APIs.",
+    ],
+  },
+  {
+    id: "hospital-management-system",
+    title: "Hospital Management System",
+    tagline: "Hospital and patient management application with appointment scheduling & RBAC",
+    category: "FULLSTACK",
+    projectType: "HEALTHCARE APPLICATION",
+    year: "2025 – 2026",
+    role: "Java Full Stack Developer",
+    industry: "Healthcare Systems & Clinical Management",
+    description:
+      "A hospital and patient management application designed to streamline patient registration, doctor appointment scheduling, electronic medical records, and role-based staff workflows.",
+    featured: true,
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "Spring Security",
+      "Hibernate / JPA",
+      "MySQL",
+      "REST APIs",
+      "React.js",
+    ],
+    liveUrl: "https://portfolio-seven-dun-14.vercel.app/",
+    accentColor: "#4B263F",
+    badgeTheme: "burgundy" as any,
+    metrics: [
+      { label: "Role Isolation", value: "100% RBAC" },
+      { label: "Appointment Scheduling", value: "Instant" },
+      { label: "Data Integrity", value: "ACID Compliant" },
+    ],
+    keyPoints: [
+      {
+        title: "Patient & Doctor Scheduling Engine",
+        description:
+          "Designed comprehensive scheduling logic preventing overlapping appointments and managing doctor shift timetables with real-time slot validation.",
+      },
+      {
+        title: "Role-Based Access Control (RBAC)",
+        description:
+          "Implemented Spring Security with JWT authentication to enforce strict access boundaries across doctors, nurses, administrative staff, and patients.",
+      },
+      {
+        title: "Hibernate / JPA Relational Data Model",
+        description:
+          "Engineered an optimized MySQL database schema managing medical history records, prescriptions, patient admissions, and billing statements.",
+      },
+      {
+        title: "Clean RESTful API Architecture",
+        description:
+          "Developed modular REST APIs with global exception handling and structured validation for seamless consumption by modern web frontends.",
+      },
+    ],
+    techStackBreakdown: [
+      { category: "Backend Engine", skills: ["Java", "Spring Boot", "Spring Security", "Hibernate / JPA"] },
+      { category: "Database & Storage", skills: ["MySQL", "Relational Modeling", "Transaction Management"] },
+      { category: "Web Interface", skills: ["React.js", "JavaScript", "Responsive UI"] },
+      { category: "API & Validation", skills: ["REST APIs", "Global Exception Handling", "Postman"] },
+    ],
+    highlights: [
+      "Zero overlapping appointments through robust concurrent booking checks.",
+      "Strict data privacy and HIPAA-aligned role-based access control.",
+      "Comprehensive patient history tracking with relational audit logs.",
+      "High-performance REST API response times under 40ms for core clinical lookups.",
     ],
   },
 ];

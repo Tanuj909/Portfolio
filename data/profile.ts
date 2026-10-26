@@ -36,15 +36,36 @@ export interface ProfileData {
 
 export const profileData: ProfileData = {
   name: "Tanuj Kashyap",
-  role: "Java Backend Developer",
-  tagline: "BUILDING DIGITAL PRODUCTS THAT SOLVE REAL PROBLEMS",
-  headline: "Java Backend Developer with 1+ year experience building scalable REST APIs & microservices.",
+  role: "Software Developer",
+  tagline: "BUILDING SCALABLE WEB & MOBILE APPLICATIONS",
+  headline: "Software Developer building scalable web and mobile applications using Java, Spring Boot, React, and modern technologies.",
   shortBio:
-    "Java Backend Developer with 1+ year of professional experience building scalable REST APIs, microservices, and secure architectures with Spring Boot.",
-  location: "India",
+    "I build scalable web and mobile applications using Java, Spring Boot, React, and modern technologies with a strong focus on high-performance backend architecture and clean user experiences.",
+  location: "Delhi NCR, India",
   availability: "Open to exciting opportunities",
-  focus: ["BACKEND ARCHITECTURE", "SPRING BOOT MICROSERVICES", "JAVA & REST APIS"],
-  stats: [],
+  focus: ["JAVA & SPRING BOOT", "REST APIS & MICROSERVICES", "REACT & MODERN WEB"],
+  stats: [
+    {
+      value: "1+",
+      label: "Years of Experience",
+      detail: "Professional backend & full-stack development",
+    },
+    {
+      value: "5+",
+      label: "Projects Completed",
+      detail: "Client deliveries, production systems & SaaS",
+    },
+    {
+      value: "MCA",
+      label: "Computer Science",
+      detail: "Delhi Skill and Entrepreneurship University",
+    },
+    {
+      value: "Delhi NCR",
+      label: "Location",
+      detail: "India • Open to on-site & remote roles",
+    },
+  ],
   socials: [
     {
       name: "LinkedIn",
@@ -63,20 +84,22 @@ export const profileData: ProfileData = {
   linkedin: "https://www.linkedin.com/in/tanuj-kashyap-909934275/",
   resumeUrl: "/Resume/Resume.pdf",
   aboutStory: {
-    lead: "Java Backend Developer building scalable, resilient, and production-grade architectures.",
+    lead: "Software Developer specializing in robust backend engineering, scalable REST APIs, and modern application development.",
     paragraphs: [
-      "I am a Java Backend Developer with 1+ year of professional experience specializing in engineering scalable REST APIs, microservices, and secure backend systems using Spring Boot. With industry experience designing production workflows at DSD Systems Pvt Ltd, I prioritize clean layered architecture, performance, and high availability.",
-      "My technical core spans Spring Security (JWT & RBAC), JPA/Hibernate, global exception handling, and database query optimization across PostgreSQL and MySQL. I have architected high-throughput systems—including a Porter-like logistics platform leveraging Redis broadcasting to reduce database load by over 90%, and a multi-tenant SaaS salon management platform.",
-      "I hold an MCA in Computer Science from Delhi Skill and Entrepreneurship University and a BCA from Institute of Technology and Science. I focus on writing maintainable, production-ready code that drives real business impact.",
+      "I am a Software Developer with professional experience engineering high-performance REST APIs, microservices, and secure backend systems using Java and Spring Boot. With industry experience designing production workflows at DSD Systems Pvt Ltd, I prioritize clean layered architecture, modularity, and high system availability.",
+      "My core backend capabilities span Spring Security (JWT authentication and role-based access control), JPA/Hibernate object-relational mapping, database query optimization across PostgreSQL and MySQL, and Redis caching. I have architected high-throughput solutions including a logistics ride-booking dispatch platform leveraging in-memory Redis broadcasting to reduce database load by over 90%, and a multi-tenant SaaS salon management platform.",
+      "Alongside backend services, I build responsive, intuitive web and mobile interfaces using React.js, Next.js, and Flutter. I hold a Master of Computer Applications (MCA) from Delhi Skill and Entrepreneurship University and a BCA from Institute of Technology and Science, driven by a commitment to write maintainable code that delivers real business value.",
     ],
     currentlyFocusing: [
-      "Java & Spring Boot 3.x",
-      "Microservices Architecture",
-      "Spring Security & JWT (RBAC)",
-      "PostgreSQL & MySQL Query Optimization",
-      "Redis Caching & Pub/Sub",
-      "RESTful API Design & Postman",
-      "Docker & Linux VPS Deployment",
+      "Java & Spring Boot",
+      "Spring Security & JWT",
+      "Hibernate / JPA",
+      "REST APIs & Microservices",
+      "PostgreSQL & MySQL",
+      "Redis Caching",
+      "React.js & Next.js",
+      "Flutter Mobile Development",
+      "Git & CI/CD",
     ],
   },
   philosophies: [
@@ -85,28 +108,28 @@ export const profileData: ProfileData = {
       title: "THINK IN SYSTEMS",
       description: "Architecture, maintainability, and scalability over quick hacks.",
       details:
-        "Every feature is part of a larger ecosystem. I architect with clear domain boundaries, strict API contracts, and predictable data flows so systems stay easy to reason about as traffic grows.",
+        "Every feature is part of a larger ecosystem. I architect with clear domain boundaries, strict API contracts, and predictable data flows so systems remain stable and easy to maintain as traffic grows.",
     },
     {
       number: "02",
       title: "BUILD FOR REAL USERS",
-      description: "Features must solve actual business problems, not just demonstrate technology.",
+      description: "Features must solve actual business problems with low latency.",
       details:
-        "Technical sophistication is meaningless if the end user experiences friction. I focus on sub-100ms response times, intuitive state management, and reliable error handling.",
+        "Technical sophistication is only worthwhile when end users have a reliable, smooth experience. I prioritize low response times, dependable error handling, and intuitive interaction design.",
     },
     {
       number: "03",
       title: "KEEP IT SIMPLE & MODULAR",
-      description: "Complex systems should have simple interfaces and clear abstractions.",
+      description: "Complex domains require clean abstractions and decoupled components.",
       details:
-        "Premature complexity is the enemy of velocity. I prefer well-tested, decoupled components and battle-tested patterns over unnecessary layers of abstraction.",
+        "Premature complexity impedes development velocity. I prefer well-tested, decoupled services and proven patterns over unnecessary layers of abstraction.",
     },
     {
       number: "04",
       title: "SHIP, MEASURE & ITERATE",
-      description: "Build, automate tests, deploy securely, and continually refine.",
+      description: "Automate validation, deploy reliably, and continually refine.",
       details:
-        "Continuous delivery and observability are first-class citizens. Automated pipelines, structured logging, and fast feedback loops ensure reliable releases.",
+        "Continuous delivery, structured logging, and automated test collections ensure that production releases remain predictable and regressions are identified immediately.",
     },
   ],
 };

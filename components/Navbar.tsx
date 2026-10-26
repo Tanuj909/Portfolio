@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Menu, X, FileText, ArrowUpRight } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 
 interface NavbarProps {
   onOpenResume: () => void;
@@ -14,15 +14,15 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
 
-      // Determine active section
-      const sections = ["about", "work", "skills", "philosophy", "contact"];
+      const sections = ["about", "projects", "skills", "contact"];
       const scrollPosition = window.scrollY + 200;
+
+      if (window.scrollY < 260) {
+        setActiveSection("hero");
+        return;
+      }
 
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -35,9 +35,6 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
           }
         }
       }
-      if (window.scrollY < 300) {
-        setActiveSection("hero");
-      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -45,10 +42,11 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
   }, []);
 
   const navLinks = [
+    { label: "Home", href: "#hero", id: "hero" },
     { label: "About", href: "#about", id: "about" },
-    { label: "Work", href: "#work", id: "work" },
+    { label: "Projects", href: "#projects", id: "projects" },
     { label: "Skills", href: "#skills", id: "skills" },
-    { label: "Philosophy", href: "#philosophy", id: "philosophy" },
+    { label: "Resume", href: "#resume", id: "resume", isResumeAction: true },
     { label: "Contact", href: "#contact", id: "contact" },
   ];
 
@@ -57,115 +55,139 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "py-3 bg-[#08090B]/85 backdrop-blur-md border-b border-white/[0.07] shadow-lg shadow-black/40"
-            : "py-6 bg-transparent"
+            ? "py-3 bg-[#FFF8F2]/90 backdrop-blur-md border-b border-[#B58AA8]/20 shadow-xs"
+            : "py-5 bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Name */}
+          
+          {/* Brand Logo & Name */}
           <a
-            href="#"
-            className="group flex flex-col text-white transition-opacity hover:opacity-90"
+            href="#hero"
+            className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
           >
-            <span className="font-semibold text-sm sm:text-base tracking-tight text-white group-hover:text-[#00F0FF] transition-colors">
+            <div className="flex items-center text-2xl font-bold tracking-tight">
+              <span className="text-[#30252E]">T</span>
+              <span className="text-[#B58AA8]">K</span>
+            </div>
+            <span className="font-bold text-base sm:text-lg tracking-tight text-[#2B222A]">
               Tanuj Kashyap
-            </span>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#71717A]">
-              Software Developer
             </span>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#0D0F12]/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/[0.08]">
+          <nav className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
+
+              if (link.isResumeAction) {
+                return (
+                  <button
+                    key={link.id}
+                    onClick={onOpenResume}
+                    className="relative text-sm font-medium text-[#4A3E47] hover:text-[#8E3666] transition-colors py-1 cursor-pointer"
+                  >
+                    {link.label}
+                  </button>
+                );
+              }
+
               return (
                 <a
                   key={link.id}
                   href={link.href}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${
-                    isActive
-                      ? "text-white bg-white/[0.08] shadow-sm"
-                      : "text-[#A1A1AA] hover:text-white hover:bg-white/[0.03]"
+                  className={`relative text-sm font-medium transition-colors py-1 ${
+                    isActive ? "text-[#241821] font-semibold" : "text-[#4A3E47] hover:text-[#8E3666]"
                   }`}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#8E3666] rounded-full" />
+                  )}
                 </a>
               );
             })}
           </nav>
 
-          {/* Right Action / Resume */}
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={onOpenResume}
-              className="group flex items-center gap-2 px-4 py-2 rounded-full bg-[#12151A] hover:bg-[#181C22] border border-white/10 hover:border-[#00F0FF]/40 text-xs font-mono font-medium text-white transition-all shadow-sm"
+          {/* Right Action: Download Resume Pill Button */}
+          <div className="hidden md:flex items-center">
+            <a
+              href="/Resume/Resume.pdf"
+              download="Tanuj_Kashyap_Resume.pdf"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#5C2849] hover:bg-[#461C36] text-white text-xs font-semibold tracking-wide transition-all duration-200 shadow-sm hover:shadow active:scale-95"
             >
-              <FileText className="w-3.5 h-3.5 text-[#00F0FF] group-hover:scale-110 transition-transform" />
-              <span>RESUME</span>
-              <ArrowUpRight className="w-3 h-3 text-[#71717A] group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </button>
+              <Download className="w-3.5 h-3.5" />
+              <span>Download Resume</span>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={onOpenResume}
-              className="px-3 py-1.5 rounded-full bg-[#12151A] border border-white/10 text-xs font-mono text-[#00F0FF]"
-              aria-label="Resume"
+              className="px-2.5 py-1 rounded-full bg-[#5C2849] text-white text-xs font-semibold"
             >
               CV
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-[#12151A] border border-white/10 text-white hover:border-[#00F0FF]/40 transition-colors"
+              className="p-2 rounded-xl bg-white/70 border border-[#B58AA8]/30 text-[#2B222A]"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
+
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-30 bg-[#08090B]/95 backdrop-blur-xl md:hidden pt-24 px-6 flex flex-col justify-between pb-10 animate-in fade-in duration-200">
-          <div className="flex flex-col gap-3">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-[#71717A] mb-2">
+        <div className="fixed inset-0 z-30 bg-[#FFF8F2]/95 backdrop-blur-xl md:hidden pt-24 px-6 flex flex-col justify-between pb-8 animate-in fade-in duration-200">
+          <div className="flex flex-col gap-2">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#8E7485] mb-2 px-2">
               Navigation
             </span>
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between py-3 border-b border-white/[0.06] text-lg font-medium text-white hover:text-[#00F0FF] transition-colors"
-              >
-                <span>{link.label}</span>
-                <span className="text-xs font-mono text-[#71717A]">#0{navLinks.indexOf(link) + 1}</span>
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              if (link.isResumeAction) {
+                return (
+                  <button
+                    key={link.id}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenResume();
+                    }}
+                    className="flex items-center justify-between py-3 px-3 rounded-xl border-b border-[#B58AA8]/15 text-left text-base font-medium text-[#30252E] hover:text-[#8E3666]"
+                  >
+                    <span>{link.label}</span>
+                    <span className="text-xs font-mono text-[#8E7485]">View</span>
+                  </button>
+                );
+              }
+
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-3 px-3 rounded-xl border-b border-[#B58AA8]/15 text-base font-medium text-[#30252E] hover:text-[#8E3666]"
+                >
+                  <span>{link.label}</span>
+                  <span className="text-xs font-mono text-[#8E7485]">#{link.id}</span>
+                </a>
+              );
+            })}
           </div>
 
-          <div className="flex flex-col gap-3 pt-6">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenResume();
-              }}
-              className="w-full py-3.5 rounded-lg bg-[#12151A] border border-[#00F0FF]/30 text-white font-mono text-sm flex items-center justify-center gap-2 hover:bg-[#181C22] transition-colors"
-            >
-              <FileText className="w-4 h-4 text-[#00F0FF]" />
-              <span>VIEW RESUME (PDF)</span>
-            </button>
-
+          <div className="pt-4">
             <a
-              href="#contact"
+              href="/Resume/Resume.pdf"
+              download="Tanuj_Kashyap_Resume.pdf"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3.5 rounded-lg bg-[#00F0FF] text-[#08090B] font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#00F0FF]/90 transition-colors shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+              className="w-full py-3 rounded-full bg-[#5C2849] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-sm"
             >
-              <span>LET&apos;S TALK</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <Download className="w-4 h-4" />
+              <span>Download Resume</span>
             </a>
           </div>
         </div>

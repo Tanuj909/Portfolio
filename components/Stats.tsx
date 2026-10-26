@@ -1,36 +1,58 @@
 "use client";
 
 import React from "react";
-import { profileData } from "../data/profile";
+import { Briefcase, Code2, GraduationCap, MapPin } from "lucide-react";
 
 export default function Stats() {
+  const statsList = [
+    {
+      value: "1+",
+      label: "Years of Experience",
+      icon: <Briefcase className="w-5 h-5 text-[#8E3666]" />,
+    },
+    {
+      value: "5+",
+      label: "Projects Completed",
+      icon: <Code2 className="w-5 h-5 text-[#8E3666]" />,
+    },
+    {
+      value: "MCA",
+      label: "Computer Science",
+      icon: <GraduationCap className="w-5 h-5 text-[#8E3666]" />,
+    },
+    {
+      value: "Delhi NCR",
+      label: "Location",
+      icon: <MapPin className="w-5 h-5 text-[#8E3666]" />,
+    },
+  ];
+
   return (
-    <section className="py-16 border-y border-white/[0.06] bg-[#0D0F12]/60 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {profileData.stats.map((stat, idx) => (
+    <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2 sm:mt-4 lg:-mt-12 mb-8 sm:mb-10">
+      <div className="rounded-2xl bg-white border border-[#B58AA8]/25 p-3.5 sm:p-5 shadow-[0_12px_32px_-6px_rgba(75,38,63,0.09)]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-0">
+          {statsList.map((stat, idx) => (
             <div
               key={idx}
-              className={`flex flex-col ${
-                idx !== 0 ? "lg:border-l lg:border-white/[0.06] lg:pl-10" : ""
+              className={`flex items-center gap-2.5 sm:gap-4 px-1.5 sm:px-4 lg:px-6 ${
+                idx !== 0 ? "lg:border-l lg:border-[#B58AA8]/20" : ""
               }`}
             >
-              <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white">
+              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-[#FCECEE] flex items-center justify-center shrink-0 [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5">
+                {stat.icon}
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-lg sm:text-2xl font-bold font-display text-[#241821] tracking-tight leading-tight truncate">
                   {stat.value}
                 </span>
-                <span className="text-[#00F0FF] text-xl font-mono">_</span>
+                <span className="text-[11px] sm:text-xs text-[#8E7485] font-medium leading-tight">
+                  {stat.label}
+                </span>
               </div>
-              <span className="text-sm font-semibold text-[#F4F4F5] tracking-tight mb-1">
-                {stat.label}
-              </span>
-              <span className="text-xs text-[#71717A] leading-relaxed">
-                {stat.detail}
-              </span>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

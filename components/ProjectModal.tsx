@@ -1,7 +1,19 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { X, ExternalLink, ArrowUpRight, CheckCircle2, Cpu, Terminal, Sparkles, Activity } from "lucide-react";
+import {
+  X,
+  ExternalLink,
+  ArrowUpRight,
+  CheckCircle2,
+  Radio,
+  MapPin,
+  Wallet,
+  ShieldCheck,
+  Calendar,
+  Maximize2,
+} from "lucide-react";
+import Image from "next/image";
 import { ProjectItem, ProjectSnapshot } from "../data/projects";
 
 interface ProjectModalProps {
@@ -11,13 +23,23 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose, onContactClick }: ProjectModalProps) {
-  const [selectedSnapshot, setSelectedSnapshot] = useState<ProjectSnapshot | null>(null);
+  const [activeSnapshot, setActiveSnapshot] = useState<ProjectSnapshot | null>(null);
+  const [isZoomOpen, setIsZoomOpen] = useState(false);
+
+  useEffect(() => {
+    if (project?.snapshots && project.snapshots.length > 0) {
+      setActiveSnapshot(project.snapshots[0]);
+    } else {
+      setActiveSnapshot(null);
+    }
+    setIsZoomOpen(false);
+  }, [project]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (selectedSnapshot) {
-          setSelectedSnapshot(null);
+        if (isZoomOpen) {
+          setIsZoomOpen(false);
         } else {
           onClose();
         }
@@ -33,46 +55,158 @@ export default function ProjectModal({ project, onClose, onContactClick }: Proje
       document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [project, onClose, selectedSnapshot]);
+  }, [project, onClose, isZoomOpen]);
 
   if (!project) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto bg-black/85 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="relative w-full max-w-4xl my-auto rounded-2xl bg-[#0D0F12] border border-white/10 shadow-2xl shadow-black/90 overflow-hidden text-[#F4F4F5]">
-        {/* Sticky Header Bar */}
-        <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#0D0F12]/95 backdrop-blur-md border-b border-white/[0.08]">
-          <div className="flex items-center gap-3">
-            <span
-              className="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold border"
-              style={{
-                backgroundColor: `${project.accentColor}15`,
-                color: project.accentColor,
-                borderColor: `${project.accentColor}30`,
-              }}
-            >
-              PROJECT OVERVIEW
-            </span>
-            <span className="text-xs font-mono text-[#71717A] hidden sm:inline">
-              {"// " + project.year}
+  // Visual component for projects without snapshot images
+  const renderProjectVisual = () => {
+    if (project.id === "riderzz") {
+      return (
+        <div className="rounded-2xl bg-white/90 border border-[#B58AA8]/25 p-5 space-y-4 shadow-2xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[#B58AA8]/20">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#8E3666] animate-pulse" />
+              <span className="font-mono text-xs font-bold text-[#5C2849]">
+                DISPATCH & ROUTING ENGINE
+              </span>
+            </div>
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#FCECEE] text-[#8E3666] font-semibold border border-[#B58AA8]/30">
+              LOGISTICS
             </span>
           </div>
 
+          <div className="space-y-3">
+            <div className="p-3.5 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center justify-between shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-[#FCECEE] text-[#8E3666]">
+                  <Radio className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-[#241821] block">
+                    Redis In-Memory Driver Broadcast
+                  </span>
+                  <span className="text-[11px] text-[#8E7485]">
+                    Geohash lookup & near-instant notification
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs font-mono font-bold text-[#8E3666]">&lt; 15ms</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-2xs">
+                <MapPin className="w-3.5 h-3.5 text-[#8E3666]" />
+                <span className="text-xs font-medium text-[#241821]">Google Routes API</span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-2xs">
+                <Wallet className="w-3.5 h-3.5 text-[#5C2849]" />
+                <span className="text-xs font-medium text-[#241821]">Razorpay Driver Wallet</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
+            <span className="text-[#8E7485]">DB LOAD REDUCTION</span>
+            <span className="text-[#8E3666] font-bold">90%+ VIA RAM</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (project.id === "hospital-management-system") {
+      return (
+        <div className="rounded-2xl bg-white/90 border border-[#B58AA8]/25 p-5 space-y-4 shadow-2xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[#B58AA8]/20">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#8E3666] animate-pulse" />
+              <span className="font-mono text-xs font-bold text-[#5C2849]">
+                CLINICAL SCHEDULING ENGINE
+              </span>
+            </div>
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#FCECEE] text-[#8E3666] font-semibold border border-[#B58AA8]/30">
+              HEALTHCARE
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            <div className="p-3.5 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center justify-between shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-[#FCECEE] text-[#8E3666]">
+                  <Calendar className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-[#241821] block">
+                    Zero-Overlap Appointment Engine
+                  </span>
+                  <span className="text-[11px] text-[#8E7485]">
+                    Doctor roster & slot concurrency validation
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs font-mono font-bold text-[#8E3666]">Instant</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-2xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#8E3666]" />
+                <span className="text-xs font-medium text-[#241821]">Spring Security RBAC</span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-2xs">
+                <span className="w-4 h-4 rounded-full bg-[#FCECEE] text-[#5C2849] flex items-center justify-center text-[10px] font-bold">
+                  DB
+                </span>
+                <span className="text-xs font-medium text-[#241821]">Hibernate / MySQL</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
+            <span className="text-[#8E7485]">SECURITY ISOLATION</span>
+            <span className="text-[#8E3666] font-bold">100% RBAC</span>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-5xl max-h-[90vh] flex flex-col rounded-3xl bg-[#FFF8F2] border border-[#B58AA8]/30 shadow-[0_25px_60px_-15px_rgba(75,38,63,0.3)] overflow-hidden relative animate-in zoom-in-95 duration-200 text-[#241821]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Header */}
+        <div className="px-6 py-4 sm:px-8 sm:py-4.5 bg-white/90 backdrop-blur-md border-b border-[#B58AA8]/20 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#FCECEE] text-[#8E3666] border border-[#B58AA8]/30">
+              {project.category}
+            </span>
+            <span className="text-xs font-mono text-[#8E7485]">
+              {project.projectType} • {project.year}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2.5">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00F0FF] text-[#08090B] text-xs font-semibold hover:bg-[#00F0FF]/90 transition-colors shadow-sm"
+                className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#5C2849] hover:bg-[#441D36] text-[#FFF8F2] text-xs font-semibold uppercase tracking-wider transition-colors shadow-2xs"
               >
-                <span>Live Portfolio</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Live Project</span>
+                <ExternalLink className="w-3 h-3 text-[#F8D5C9]" />
               </a>
             )}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full bg-[#12151A] hover:bg-[#181C22] border border-white/10 text-[#A1A1AA] hover:text-white transition-colors"
+              className="p-2 rounded-full hover:bg-[#FCECEE] text-[#8E7485] hover:text-[#5C2849] transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -81,271 +215,234 @@ export default function ProjectModal({ project, onClose, onContactClick }: Proje
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="max-h-[82vh] overflow-y-auto p-6 sm:p-8 space-y-8">
-          {/* Section 1: Header & Key Metrics */}
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono text-[#71717A]">
-              <span className="text-white font-medium">{project.role}</span>
-              <span>•</span>
-              <span className="text-[#A1A1AA]">{project.industry}</span>
-              {project.client && (
-                <>
-                  <span>•</span>
-                  <span style={{ color: project.accentColor }}>{project.client}</span>
-                </>
+        <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+          
+          {/* Top Title & Overview */}
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold font-display text-[#241821] tracking-tight">
+              {project.title}
+            </h2>
+            <p className="text-sm sm:text-base text-[#634E5D] mt-2 leading-relaxed">
+              {project.description}
+            </p>
+          </div>
+
+          {/* 3 Metric Badges */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {project.metrics.map((m, i) => (
+              <div
+                key={i}
+                className="p-3.5 rounded-2xl bg-white/90 border border-[#B58AA8]/25 shadow-2xs flex flex-col justify-between"
+              >
+                <span className="text-lg sm:text-xl font-bold font-display text-[#5C2849]">
+                  {m.value}
+                </span>
+                <span className="text-[11px] font-mono text-[#8E7485] uppercase tracking-wider mt-0.5 font-semibold">
+                  {m.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Two-Column Structured Section: Highlights vs Visual */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pt-2">
+            
+            {/* Left Column: Key Highlights & Tech Stack */}
+            <div className={`${project.snapshots?.length ? "lg:col-span-6" : "lg:col-span-7"} space-y-4`}>
+              <div className="p-5 rounded-2xl bg-white/90 border border-[#B58AA8]/25 shadow-2xs space-y-3">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#8E7485] font-semibold block">
+                  Key Technical Achievements
+                </span>
+                <div className="space-y-3">
+                  {project.keyPoints.map((pt, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#8E3666] shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="text-xs font-bold text-[#241821]">
+                          {pt.title}
+                        </h4>
+                        <p className="text-xs text-[#634E5D] mt-0.5 leading-relaxed">
+                          {pt.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Technologies Used */}
+              <div className="p-4 rounded-2xl bg-white/90 border border-[#B58AA8]/25 shadow-2xs space-y-2">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#8E7485] font-semibold block">
+                  Technologies
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 rounded-lg bg-[#FCECEE]/70 border border-[#B58AA8]/25 text-xs font-medium text-[#5C2849]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Visual Preview or Interactive Screenshots */}
+            <div className={`${project.snapshots?.length ? "lg:col-span-6" : "lg:col-span-5"} space-y-3`}>
+              {project.snapshots && project.snapshots.length > 0 ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#8E7485] font-semibold">
+                      Production Screens ({project.snapshots.length})
+                    </span>
+                    <button
+                      onClick={() => setIsZoomOpen(true)}
+                      className="text-xs font-semibold text-[#8E3666] hover:text-[#5C2849] flex items-center gap-1 cursor-pointer"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span>Zoom View</span>
+                    </button>
+                  </div>
+
+                  {/* Active Large Screen Preview */}
+                  {activeSnapshot && (
+                    <div
+                      onClick={() => setIsZoomOpen(true)}
+                      className="cursor-pointer group rounded-2xl bg-white border border-[#B58AA8]/30 overflow-hidden shadow-xs hover:border-[#8E3666]/50 transition-all"
+                    >
+                      <div className="px-3.5 py-2 bg-[#FFF4ED] border-b border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
+                        <span className="font-semibold text-[#241821] truncate max-w-[260px]">
+                          {activeSnapshot.title}
+                        </span>
+                        <span className="text-[11px] text-[#8E3666] font-medium group-hover:underline">
+                          Click to enlarge
+                        </span>
+                      </div>
+                      <div className="relative aspect-[16/10] bg-[#F8ECE4] overflow-hidden">
+                        <Image
+                          src={activeSnapshot.image}
+                          alt={activeSnapshot.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 500px"
+                          className="object-cover object-top transition-transform duration-300 group-hover:scale-102"
+                        />
+                      </div>
+                      <div className="p-3 bg-white">
+                        <p className="text-xs text-[#634E5D]">
+                          {activeSnapshot.description}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Horizontal Thumbnail Strip */}
+                  <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 scrollbar-thin">
+                    {project.snapshots.map((snap, idx) => {
+                      const isActive = activeSnapshot?.title === snap.title;
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveSnapshot(snap)}
+                          className={`relative shrink-0 w-16 h-12 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+                            isActive
+                              ? "border-[#5C2849] shadow-xs scale-105"
+                              : "border-[#B58AA8]/30 opacity-70 hover:opacity-100"
+                          }`}
+                        >
+                          <Image
+                            src={snap.image}
+                            alt={snap.title}
+                            fill
+                            sizes="64px"
+                            className="object-cover object-top"
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#8E7485] font-semibold block">
+                    Architecture & Flow
+                  </span>
+                  {renderProjectVisual()}
+                </div>
               )}
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-white">
-              {project.title}
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#A1A1AA] leading-relaxed">
-              {project.description}
-            </p>
-
-            {/* 3 Metric Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              {project.metrics.map((metric, i) => (
-                <div
-                  key={i}
-                  className="p-3.5 rounded-xl bg-[#12151A] border border-white/[0.08] flex flex-col"
-                >
-                  <span
-                    className="text-xl sm:text-2xl font-bold font-display"
-                    style={{ color: project.accentColor }}
-                  >
-                    {metric.value}
-                  </span>
-                  <span className="text-[11px] font-mono text-[#71717A] uppercase mt-0.5">
-                    {metric.label}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Section 2: Core Engineering & Architecture Highlights (Resume Points) */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 border-b border-white/[0.08] pb-3">
-              <Cpu className="w-4 h-4 text-[#00F0FF]" />
-              <h3 className="text-xs font-mono uppercase tracking-widest text-white font-semibold">
-                KEY TECHNICAL ACHIEVEMENTS & ARCHITECTURE
-              </h3>
-            </div>
+        </div>
 
-            <div className="grid grid-cols-1 gap-3">
-              {project.keyPoints.map((point, i) => (
-                <div
-                  key={i}
-                  className="p-4 rounded-xl bg-[#12151A] border border-white/[0.06] flex items-start gap-3.5 hover:border-white/15 transition-colors"
-                >
-                  <span
-                    className="w-2 h-2 rounded-full mt-1.5 shrink-0"
-                    style={{ backgroundColor: project.accentColor }}
-                  />
-                  <div>
-                    <h4 className="text-xs sm:text-sm font-semibold text-white font-display mb-1">
-                      {point.title}
-                    </h4>
-                    <p className="text-xs text-[#A1A1AA] leading-relaxed">
-                      {point.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Modal Footer */}
+        <div className="px-6 py-4 sm:px-8 sm:py-4 bg-white/90 backdrop-blur-md border-t border-[#B58AA8]/20 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+          <p className="text-xs text-[#634E5D] font-mono">
+            {project.role} • {project.industry}
+          </p>
 
-          {/* Section 3: Tech Stack Breakdown */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 border-b border-white/[0.08] pb-3">
-              <Terminal className="w-4 h-4 text-[#00F0FF]" />
-              <h3 className="text-xs font-mono uppercase tracking-widest text-white font-semibold">
-                TECHNOLOGY STACK
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {project.techStackBreakdown.map((cat, i) => (
-                <div key={i} className="p-3.5 rounded-xl bg-[#12151A] border border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-[#71717A] uppercase block mb-2 font-medium">
-                    {cat.category}
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {cat.skills.map((skill, sIdx) => (
-                      <span
-                        key={sIdx}
-                        className="px-2 py-0.5 rounded bg-[#0D0F12] border border-white/[0.08] text-[11px] font-mono text-[#E4E4E7]"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Section 4: Production Screen Snapshots (If snapshots exist) */}
-          {project.snapshots && project.snapshots.length > 0 && (
-            <div className="space-y-6 pt-2">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#10B981]" />
-                  <h3 className="text-xs font-mono uppercase tracking-widest text-white font-semibold">
-                    PRODUCTION UI SNAPSHOTS & SCREENS
-                  </h3>
-                </div>
-                <span className="text-[11px] font-mono text-[#10B981]">
-                  {project.snapshots.length} Verified Screens
-                </span>
-              </div>
-
-              {/* Grouped Snapshots */}
-              {Array.from(new Set(project.snapshots.map((s) => s.category))).map((catName) => {
-                const catSnapshots = project.snapshots?.filter((s) => s.category === catName) || [];
-                return (
-                  <div key={catName} className="space-y-3">
-                    <div className="flex items-center gap-2 text-xs font-mono text-[#D4D4D8]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                      <span className="font-semibold uppercase tracking-wider text-white">
-                        {catName}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      {catSnapshots.map((snap, sIdx) => (
-                        <div
-                          key={sIdx}
-                          onClick={() => setSelectedSnapshot(snap)}
-                          className="group/snap cursor-pointer rounded-xl bg-[#12151A] border border-white/[0.08] hover:border-[#10B981]/50 overflow-hidden transition-all duration-300 shadow-md flex flex-col"
-                        >
-                          {/* Browser Bar */}
-                          <div className="flex items-center justify-between px-3 py-1.5 bg-[#0D0F12] border-b border-white/[0.06] text-[10px] font-mono text-[#71717A]">
-                            <span className="text-white/80 font-medium truncate max-w-[200px]">
-                              {snap.title}
-                            </span>
-                            <span className="text-[#10B981] group-hover/snap:underline">
-                              Click to Zoom
-                            </span>
-                          </div>
-
-                          {/* Image */}
-                          <div className="relative aspect-[16/10] bg-black/60 overflow-hidden">
-                            <img
-                              src={snap.image}
-                              alt={snap.title}
-                              className="w-full h-full object-cover object-top transition-transform duration-300 group-hover/snap:scale-105"
-                              loading="lazy"
-                            />
-                          </div>
-
-                          {/* Caption */}
-                          <div className="p-3 bg-[#12151A] flex-1">
-                            <h5 className="text-xs font-semibold text-white mb-0.5">
-                              {snap.title}
-                            </h5>
-                            <p className="text-[11px] text-[#A1A1AA] leading-relaxed">
-                              {snap.description}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Section 5: Key Verified Outcomes */}
-          <div className="p-5 rounded-xl bg-[#12151A] border border-white/[0.08] space-y-3">
-            <div className="flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#00F0FF]" />
-              <h3 className="text-xs font-mono uppercase tracking-widest text-white font-semibold">
-                VERIFIED OUTCOMES & IMPACT
-              </h3>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {project.highlights.map((item, i) => (
-                <div
-                  key={i}
-                  className="p-3 rounded-lg bg-[#08090B]/80 border border-white/[0.04] text-xs text-[#A1A1AA] flex items-start gap-2.5"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
-                  <span className="text-[#F4F4F5]">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Section 6: CTA */}
-          <div className="p-5 sm:p-6 rounded-xl bg-[#08090B] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <h4 className="text-sm sm:text-base font-bold font-display text-white">
-                Interested in building a similar production system?
-              </h4>
-              <p className="text-xs text-[#71717A] mt-0.5">
-                Let&apos;s discuss backend architecture, database scaling, or project requirements.
-              </p>
-            </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-full hover:bg-[#FCECEE] text-xs font-semibold text-[#634E5D] transition-colors cursor-pointer"
+            >
+              Close
+            </button>
             <button
               onClick={() => {
                 onClose();
                 onContactClick();
               }}
-              className="px-5 py-2.5 rounded-lg bg-[#00F0FF] text-[#08090B] font-semibold text-xs tracking-wider flex items-center gap-2 hover:bg-[#00F0FF]/90 transition-all shrink-0"
+              className="flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#5C2849] hover:bg-[#441D36] text-[#FFF8F2] text-xs font-semibold uppercase tracking-wider transition-all shadow-xs cursor-pointer active:scale-98"
             >
-              <span>GET IN TOUCH</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>Discuss Project</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#F8D5C9]" />
             </button>
           </div>
         </div>
+
       </div>
 
-      {/* Fullscreen Snapshot Lightbox Modal */}
-      {selectedSnapshot && (
+      {/* Fullscreen Snapshot Zoom Lightbox */}
+      {isZoomOpen && activeSnapshot && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-6 bg-black/95 backdrop-blur-2xl animate-in fade-in duration-200"
-          onClick={() => setSelectedSnapshot(null)}
+          className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setIsZoomOpen(false)}
         >
           <div
-            className="relative w-full max-w-5xl max-h-[92vh] flex flex-col rounded-2xl bg-[#0D0F12] border border-white/20 shadow-2xl overflow-hidden"
+            className="relative w-full max-w-5xl max-h-[92vh] flex flex-col rounded-3xl bg-[#FFF8F2] border border-[#B58AA8]/30 shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 py-3 bg-[#0D0F12] border-b border-white/10">
-              <div className="flex items-center gap-2.5">
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30 uppercase">
-                  {selectedSnapshot.category}
+            <div className="flex items-center justify-between px-5 py-3.5 bg-white border-b border-[#B58AA8]/20">
+              <div>
+                <span className="font-bold text-sm text-[#241821] font-display">
+                  {activeSnapshot.title}
                 </span>
-                <span className="font-display font-bold text-sm text-white">
-                  {selectedSnapshot.title}
+                <span className="text-xs text-[#8E7485] ml-2 font-mono">
+                  ({project.title})
                 </span>
               </div>
               <button
-                onClick={() => setSelectedSnapshot(null)}
-                className="p-1.5 rounded-full bg-[#181C22] hover:bg-[#20252D] text-[#A1A1AA] hover:text-white transition-colors"
-                aria-label="Close zoom preview"
+                onClick={() => setIsZoomOpen(false)}
+                className="p-1.5 rounded-full hover:bg-[#FCECEE] text-[#8E7485] hover:text-[#5C2849] transition-colors cursor-pointer"
+                aria-label="Close zoom"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Main Image View */}
-            <div className="flex-1 overflow-auto bg-black/90 flex items-center justify-center p-2 sm:p-4">
+            <div className="flex-1 overflow-auto bg-white/50 flex items-center justify-center p-4">
               <img
-                src={selectedSnapshot.image}
-                alt={selectedSnapshot.title}
-                className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl"
+                src={activeSnapshot.image}
+                alt={activeSnapshot.title}
+                className="max-w-full max-h-[72vh] object-contain rounded-2xl shadow-md border border-[#B58AA8]/20"
               />
             </div>
 
-            {/* Footer Caption */}
-            <div className="px-5 py-3 bg-[#0A0C0E] border-t border-white/[0.08] flex items-center justify-between text-xs text-[#A1A1AA] font-mono">
-              <span>{selectedSnapshot.description}</span>
-              <span className="text-[#71717A] hidden sm:inline">Press ESC or click outside to close</span>
+            <div className="px-5 py-3 bg-white border-t border-[#B58AA8]/20 flex items-center justify-between text-xs text-[#634E5D]">
+              <span>{activeSnapshot.description}</span>
+              <span className="font-mono text-[#8E7485] hidden sm:inline">Press ESC to exit</span>
             </div>
           </div>
         </div>

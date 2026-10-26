@@ -1,7 +1,18 @@
 "use client";
 
 import React from "react";
-import { ArrowUpRight, ArrowRight, Layers, ShieldCheck, Database, Radio, MapPin, Wallet, Server, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
+import {
+  ArrowUpRight,
+  Radio,
+  MapPin,
+  Wallet,
+  Activity,
+  ShieldCheck,
+  Calendar,
+  Layers,
+  ExternalLink,
+} from "lucide-react";
 import { projectsData, ProjectItem } from "../data/projects";
 
 interface WorkProps {
@@ -9,165 +20,146 @@ interface WorkProps {
 }
 
 export default function Work({ onSelectProject }: WorkProps) {
-  // Visual schematic icons per project
   const getProjectVisual = (project: ProjectItem) => {
     switch (project.id) {
-      case "logistics-porter-platform":
+      case "riderzz":
         return (
-          <div className="relative w-full h-full flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br from-[#0F1720] via-[#0D1117] to-[#08090B] rounded-2xl border border-[#00F0FF]/20 shadow-2xl overflow-hidden group-hover:border-[#00F0FF]/40 transition-all">
-            {/* Ambient Corner Glow */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#00F0FF]/10 rounded-full blur-3xl pointer-events-none" />
-            
+          <div className="relative w-full h-full flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-[#FFF4ED] via-[#FFF8F2] to-[#F8ECE4] border border-[#B58AA8]/30 shadow-xs overflow-hidden">
             {/* Top Bar */}
-            <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+            <div className="flex items-center justify-between border-b border-[#B58AA8]/20 pb-3">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-pulse" />
-                <span className="font-mono text-xs text-white font-semibold tracking-wider">
-                  LOGISTICS // DISPATCH ENGINE
+                <span className="w-2.5 h-2.5 rounded-full bg-[#75405F] animate-pulse" />
+                <span className="font-mono text-xs text-[#4B263F] font-bold tracking-wider">
+                  DISPATCH & ROUTING ENGINE
                 </span>
               </div>
-              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/20">
-                PROD LIVE
+              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#F8D5C9] text-[#75405F] border border-[#B58AA8]/30 font-semibold">
+                LOGISTICS
               </span>
             </div>
 
-            {/* Middle Graphic / Architecture Representation */}
-            <div className="my-6 space-y-3">
-              {/* Driver Redis Stream Pill */}
-              <div className="p-3.5 rounded-xl bg-[#121820] border border-white/[0.08] flex items-center justify-between">
+            {/* Architecture Flow */}
+            <div className="my-5 space-y-3">
+              <div className="p-3.5 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center justify-between shadow-xs">
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-lg bg-[#00F0FF]/10 text-[#00F0FF]">
-                    <Radio className="w-4 h-4 animate-pulse" />
+                  <div className="p-2 rounded-lg bg-[#F8D5C9] text-[#75405F]">
+                    <Radio className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-mono font-medium text-white block">
+                    <span className="text-xs font-semibold text-[#30252E] block">
                       Redis In-Memory Broadcast
                     </span>
-                    <span className="text-[10px] text-[#A1A1AA]">
-                      Near-instantaneous driver geohash matching
+                    <span className="text-[10px] text-[#8E7485]">
+                      Near-instant driver geohash lookup
                     </span>
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold text-[#00F0FF]">&lt; 15ms</span>
+                <span className="text-xs font-mono font-bold text-[#75405F]">&lt; 15ms</span>
               </div>
 
-              {/* Google Routes & Razorpay Flow */}
               <div className="grid grid-cols-2 gap-2.5">
-                <div className="p-3 rounded-xl bg-[#121820] border border-white/[0.08] flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  <span className="text-[11px] font-mono text-[#D4D4D8]">Google Routes</span>
+                <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-xs">
+                  <MapPin className="w-3.5 h-3.5 text-[#B58AA8]" />
+                  <span className="text-[11px] font-medium text-[#4B263F]">Google Routes</span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#121820] border border-white/[0.08] flex items-center gap-2">
-                  <Wallet className="w-3.5 h-3.5 text-[#10B981]" />
-                  <span className="text-[11px] font-mono text-[#D4D4D8]">Razorpay Wallet</span>
+                <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-xs">
+                  <Wallet className="w-3.5 h-3.5 text-[#75405F]" />
+                  <span className="text-[11px] font-medium text-[#4B263F]">Razorpay Wallet</span>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Key Stat */}
-            <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
-              <span className="text-[#71717A]">DATABASE PRESSURE REDUCTION</span>
-              <span className="text-[#00F0FF] font-bold">90%+ IN RAM</span>
+            {/* Bottom Metric */}
+            <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
+              <span className="text-[#8E7485]">DATABASE LOAD REDUCTION</span>
+              <span className="text-[#4B263F] font-bold">90%+ IN RAM</span>
+            </div>
+          </div>
+        );
+
+      case "hospital-management-system":
+        return (
+          <div className="relative w-full h-full flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-[#FFF4ED] via-[#FFF8F2] to-[#F3C6C8]/25 border border-[#B58AA8]/30 shadow-xs overflow-hidden">
+            {/* Top Bar */}
+            <div className="flex items-center justify-between border-b border-[#B58AA8]/20 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#4B263F] animate-pulse" />
+                <span className="font-mono text-xs text-[#4B263F] font-bold tracking-wider">
+                  CLINICAL WORKFLOW & APPOINTMENTS
+                </span>
+              </div>
+              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#F3C6C8] text-[#4B263F] border border-[#B58AA8]/30 font-semibold">
+                HEALTHCARE
+              </span>
+            </div>
+
+            {/* Middle Workflow */}
+            <div className="my-5 space-y-3">
+              <div className="p-3.5 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center justify-between shadow-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-lg bg-[#F3C6C8] text-[#4B263F]">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-[#30252E] block">
+                      Patient Appointment Dispatch
+                    </span>
+                    <span className="text-[10px] text-[#8E7485]">
+                      Doctor roster & conflict-free scheduling
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-mono font-bold text-[#4B263F]">REAL-TIME</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-xs">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#75405F]" />
+                  <span className="text-[11px] font-medium text-[#4B263F]">Spring Security RBAC</span>
+                </div>
+                <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-xs">
+                  <Activity className="w-3.5 h-3.5 text-[#B58AA8]" />
+                  <span className="text-[11px] font-medium text-[#4B263F]">Patient EHR History</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Metric */}
+            <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
+              <span className="text-[#8E7485]">ACCESS SECURITY ISOLATION</span>
+              <span className="text-[#4B263F] font-bold">100% RBAC</span>
             </div>
           </div>
         );
 
       case "salon-saas-platform":
-        return (
-          <div className="relative w-full h-full flex flex-col justify-between rounded-2xl border border-[#10B981]/25 bg-[#0D1210] shadow-2xl overflow-hidden group-hover:border-[#10B981]/50 transition-all">
-            {/* Top Browser Spec Bar */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-[#0A0D0B]/90 border-b border-white/[0.08] shrink-0">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]/60" />
-                <span className="font-mono text-[11px] text-white/70 ml-1">
-                  salon-saas.production.app
-                </span>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30">
-                PROD PREVIEW
-              </span>
-            </div>
-
-            {/* Screenshot Container with subtle zoom on card hover */}
-            <div className="relative flex-1 w-full overflow-hidden bg-black/40">
-              <img
-                src="/Salon/home.png"
-                alt="Salon Multi-Tenant SaaS Platform"
-                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#08090B] via-transparent to-transparent opacity-60" />
-              
-              {/* Bottom Feature Pill */}
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between p-2.5 rounded-xl bg-[#0D0F12]/90 backdrop-blur-md border border-white/10 text-xs font-mono">
-                <span className="text-white font-medium flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                  Multi-Tenant SaaS Storefront
-                </span>
-                <span className="text-[#10B981] font-bold">11 Screenshots</span>
-              </div>
-            </div>
-          </div>
-        );
-
-      case "dsd-enterprise-microservices":
       default:
         return (
-          <div className="relative w-full h-full flex flex-col justify-between p-6 sm:p-8 bg-gradient-to-br from-[#121826] via-[#0E131E] to-[#08090B] rounded-2xl border border-[#38BDF8]/20 shadow-2xl overflow-hidden group-hover:border-[#38BDF8]/40 transition-all">
-            {/* Ambient Corner Glow */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#38BDF8]/10 rounded-full blur-3xl pointer-events-none" />
-            
-            {/* Top Bar */}
-            <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] animate-pulse" />
-                <span className="font-mono text-xs text-white font-semibold tracking-wider">
-                  DSD SYSTEMS // MICROSERVICES
+          <div className="relative w-full h-full flex flex-col justify-between rounded-2xl border border-[#B58AA8]/30 bg-[#FFF8F2] shadow-xs overflow-hidden">
+            {/* Top Browser Bar */}
+            <div className="flex items-center justify-between px-4 py-2.5 bg-[#FFF4ED] border-b border-[#B58AA8]/20 shrink-0">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#B58AA8]/40" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#F3C6C8]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#75405F]/60" />
+                <span className="font-mono text-[11px] text-[#8E7485] ml-2">
+                  salon-saas.platform
                 </span>
               </div>
-              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/20">
-                OPTIMIZED
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#F8D5C9] text-[#75405F] font-semibold border border-[#B58AA8]/30">
+                11 SCREENS
               </span>
             </div>
 
-            {/* Middle Graphic / Architecture Representation */}
-            <div className="my-6 space-y-3">
-              {/* MySQL Query & Index Optimization */}
-              <div className="p-3.5 rounded-xl bg-[#131D2E] border border-white/[0.08] flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-lg bg-[#38BDF8]/10 text-[#38BDF8]">
-                    <Server className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-mono font-medium text-white block">
-                      MySQL Query & Index Tuning
-                    </span>
-                    <span className="text-[10px] text-[#A1A1AA]">
-                      B-Tree compound indexing on core entities
-                    </span>
-                  </div>
-                </div>
-                <span className="text-xs font-mono font-bold text-[#38BDF8]">45% FASTER</span>
-              </div>
-
-              {/* Exception Handling & Postman */}
-              <div className="grid grid-cols-2 gap-2.5">
-                <div className="p-3 rounded-xl bg-[#131D2E] border border-white/[0.08] flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
-                  <span className="text-[11px] font-mono text-[#D4D4D8]">Global @Advice</span>
-                </div>
-                <div className="p-3 rounded-xl bg-[#131D2E] border border-white/[0.08] flex items-center gap-2">
-                  <Layers className="w-3.5 h-3.5 text-[#38BDF8]" />
-                  <span className="text-[11px] font-mono text-[#D4D4D8]">Postman Suites</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Key Stat */}
-            <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
-              <span className="text-[#71717A]">UNHANDLED ERROR RATE</span>
-              <span className="text-[#38BDF8] font-bold">0% (STANDARDIZED)</span>
+            {/* Screenshot Container */}
+            <div className="relative flex-1 w-full overflow-hidden bg-[#F8ECE4]">
+              <Image
+                src="/Salon/home.png"
+                alt="Salon Platform Multi-Tenant SaaS"
+                fill
+                sizes="(max-width: 768px) 100vw, 500px"
+                className="object-cover object-top transition-transform duration-500 hover:scale-105"
+              />
             </div>
           </div>
         );
@@ -175,145 +167,133 @@ export default function Work({ onSelectProject }: WorkProps) {
   };
 
   return (
-    <section id="work" className="py-24 sm:py-32 relative border-t border-white/[0.06] bg-[#08090B]">
+    <section id="projects" className="py-16 sm:py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="mb-16 sm:mb-20 text-left">
+        <div className="mb-12 sm:mb-16 text-left">
           <div className="flex items-center gap-3 mb-3">
-            <span className="font-mono text-xs text-[#00F0FF] tracking-widest uppercase">
-              {"// 02. SELECTED WORK"}
+            <span className="font-mono text-xs uppercase tracking-widest text-[#8E3666] font-bold px-3.5 py-1.5 rounded-full bg-[#FCECEE] border border-[#B58AA8]/30 shadow-2xs">
+              Projects
             </span>
-            <div className="h-[1px] bg-white/[0.08] w-12" />
+            <div className="h-[1px] bg-[#B58AA8]/30 w-12" />
           </div>
-          <h2 className="text-3xl sm:text-5xl font-bold font-display tracking-tight text-white">
-            ENGINEERED FOR PRODUCTION.
+          <h2 className="text-3xl sm:text-5xl font-bold font-display tracking-tight text-[#241821]">
+            Featured Projects
           </h2>
-          <p className="text-sm sm:text-base text-[#A1A1AA] max-w-2xl mt-2 font-light">
-            Real-world backend architectures, scalable microservices, and client platforms engineered with technical rigor and verified in production.
+          <p className="text-sm sm:text-base text-[#634E5D] max-w-2xl mt-2 font-normal">
+            Real-world applications and scalable backend systems I&apos;ve built with clean architecture and modern technologies.
           </p>
         </div>
 
-        {/* Alternating Zig-Zag Project Showcase */}
-        <div className="space-y-20 lg:space-y-28">
+        {/* Project Cards Grid */}
+        <div className="space-y-10 sm:space-y-14">
           {projectsData.map((project, index) => {
             const isEven = index % 2 === 0;
 
             return (
               <div
                 key={project.id}
-                className="group relative p-[2px] rounded-3xl overflow-hidden shadow-2xl shadow-black/90"
+                className="group rounded-3xl bg-white/90 backdrop-blur-md border border-[#B58AA8]/30 p-6 sm:p-8 lg:p-10 shadow-[0_12px_32px_-8px_rgba(75,38,63,0.08)] hover:border-[#8E3666]/50 hover:shadow-[0_20px_40px_-10px_rgba(75,38,63,0.14)] transition-all duration-300"
               >
-                {/* Rotating Conic Liquid Stream */}
-                <div
-                  className="absolute -inset-[150%] animate-liquid-border"
-                  style={{
-                    background:
-                      project.id === "logistics-porter-platform"
-                        ? "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 60deg, rgba(0, 240, 255, 0.05) 120deg, rgba(0, 240, 255, 0.2) 200deg, #0ea5e9 260deg, #38BDF8 310deg, #00F0FF 345deg, #E0F7FA 356deg, transparent 360deg)"
-                        : "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 60deg, rgba(16, 185, 129, 0.05) 120deg, rgba(16, 185, 129, 0.2) 200deg, #059669 260deg, #34D399 310deg, #10B981 345deg, #D1FAE5 356deg, transparent 360deg)",
-                  }}
-                />
-
-                {/* Diffused Liquid Glow */}
-                <div
-                  className="absolute -inset-[150%] animate-liquid-border blur-md opacity-70"
-                  style={{
-                    background:
-                      project.id === "logistics-porter-platform"
-                        ? "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 100deg, rgba(0, 240, 255, 0.15) 180deg, #00F0FF 300deg, #38BDF8 345deg, transparent 360deg)"
-                        : "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 100deg, rgba(16, 185, 129, 0.15) 180deg, #10B981 300deg, #34D399 345deg, transparent 360deg)",
-                  }}
-                />
-
-                {/* Inner Card Frame */}
-                <div className="relative rounded-[22px] bg-[#0D0F12] p-6 sm:p-8 lg:p-10 overflow-hidden">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                  {/* Visual Preview Card (Left on even, Right on odd) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  
+                  {/* Visual Preview (Left on even, Right on odd) */}
                   <div
-                    className={`lg:col-span-5 h-[340px] sm:h-[380px] w-full ${
+                    className={`lg:col-span-5 h-[300px] sm:h-[340px] w-full ${
                       isEven ? "lg:order-1" : "lg:order-2"
                     }`}
                   >
                     {getProjectVisual(project)}
                   </div>
 
-                  {/* Project Detailed Information (Right on even, Left on odd) */}
+                  {/* Project Information */}
                   <div
-                    className={`lg:col-span-7 flex flex-col justify-between space-y-5 ${
+                    className={`lg:col-span-7 flex flex-col justify-between space-y-4 ${
                       isEven ? "lg:order-2" : "lg:order-1"
                     }`}
                   >
-                    {/* Index & Meta Header */}
-                    <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono">
-                      <span
-                        className="font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08]"
-                        style={{ color: project.accentColor }}
-                      >
-                        // PROJECT 0{index + 1}
+                    {/* Meta Header */}
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#8E7485]">
+                      <span className="font-bold uppercase tracking-wider text-[#8E3666] px-2.5 py-0.5 rounded-full bg-[#FCECEE] border border-[#B58AA8]/25">
+                        {project.projectType}
                       </span>
-                      <span className="text-[#71717A]">•</span>
-                      <span className="text-[#A1A1AA]">{project.projectType}</span>
-                      <span className="text-[#71717A]">•</span>
-                      <span className="text-[#71717A]">{project.year}</span>
+                      <span>•</span>
+                      <span>{project.year}</span>
+                      {project.industry && (
+                        <>
+                          <span>•</span>
+                          <span className="text-[#634E5D]">{project.industry}</span>
+                        </>
+                      )}
                     </div>
 
-                    {/* Project Title & Tagline */}
+                    {/* Title & Tagline */}
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-white group-hover:text-[#00F0FF] transition-colors">
+                      <h3 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-[#241821] group-hover:text-[#8E3666] transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-xs sm:text-sm font-mono mt-1 text-[#00F0FF]">
+                      <p className="text-xs sm:text-sm font-medium text-[#8E3666] mt-1">
                         {project.tagline}
                       </p>
                     </div>
 
-                    {/* Minimal Quick Summary Highlights */}
-                    <ul className="space-y-2 text-xs sm:text-[13px] text-[#A1A1AA] leading-relaxed">
+                    {/* Concise Description */}
+                    <p className="text-sm text-[#634E5D] leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Key Highlights */}
+                    <ul className="space-y-1.5 text-xs text-[#241821]">
                       {project.highlights.slice(0, 3).map((item, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-2.5">
-                          <span
-                            className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
-                            style={{ backgroundColor: project.accentColor }}
-                          />
-                          <span className="text-[#D4D4D8]">{item}</span>
+                        <li key={fIdx} className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#8E3666] mt-1.5 shrink-0" />
+                          <span>{item}</span>
                         </li>
                       ))}
                     </ul>
 
-                    {/* Technology Chips */}
-                    <div className="pt-1">
+                    {/* Tech Badges */}
+                    <div className="pt-2">
                       <div className="flex flex-wrap gap-1.5">
-                        {project.technologies.slice(0, 6).map((tech, tIdx) => (
+                        {project.technologies.map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-1 rounded-md bg-[#12151A] border border-white/[0.08] text-xs font-mono text-[#D4D4D8]"
+                            className="px-2.5 py-1 rounded-lg bg-[#FCECEE] border border-[#B58AA8]/25 text-xs font-mono font-medium text-[#5C2849]"
                           >
                             {tech}
                           </span>
                         ))}
-                        {project.technologies.length > 6 && (
-                          <span className="px-2 py-1 rounded-md bg-white/[0.04] text-[11px] font-mono text-[#71717A]">
-                            +{project.technologies.length - 6} more
-                          </span>
-                        )}
                       </div>
                     </div>
 
-                    {/* Action CTA Button */}
-                    <div className="pt-3 border-t border-white/[0.06] flex items-center gap-4">
+                    {/* CTAs */}
+                    <div className="pt-4 border-t border-[#B58AA8]/20 flex flex-wrap items-center gap-3">
                       <button
                         onClick={() => onSelectProject(project)}
-                        className="px-6 py-2.5 rounded-full bg-[#00F0FF] text-[#08090B] font-bold text-xs font-mono tracking-wider flex items-center gap-2 hover:bg-[#00F0FF]/90 transition-all active:scale-95 shadow-[0_0_16px_rgba(0,240,255,0.25)]"
+                        className="px-6 py-2.5 rounded-full bg-[#5C2849] hover:bg-[#461C36] text-white font-semibold text-xs tracking-wider flex items-center gap-2 transition-all shadow-sm active:scale-95 cursor-pointer"
                       >
-                        <span>KNOW MORE</span>
-                        <ArrowUpRight className="w-4 h-4" />
+                        <span>Know More & Details</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
                       </button>
+
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2.5 rounded-full bg-white hover:bg-[#FCECEE] border border-[#B58AA8]/35 text-[#5C2849] text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-2xs"
+                        >
+                          <span>Live Site</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
+
                   </div>
                 </div>
               </div>
-            </div>
-          );
+            );
           })}
         </div>
       </div>

@@ -1,156 +1,158 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, FileText, Mail } from "lucide-react";
-import { LinkedinIcon } from "./Icons";
-import { profileData } from "../data/profile";
-import HeroBackgroundShader from "./HeroBackgroundShader";
+import { ArrowRight, Send } from "lucide-react";
 
 interface HeroProps {
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
 }
 
 export default function Hero({ onOpenResume }: HeroProps) {
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-between pt-28 pb-12 overflow-hidden">
-      {/* Interactive WebGL Shader Background */}
-      <HeroBackgroundShader />
+    <section
+      id="hero"
+      className="relative min-h-[500px] sm:min-h-[540px] lg:min-h-[560px] flex flex-col justify-end lg:flex-row lg:items-end pt-20 sm:pt-22 lg:pt-20 pb-6 sm:pb-8 lg:pb-0 overflow-hidden"
+    >
+      {/* 1. Full-Width Mountain Sunset Banner Background */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
+        <Image
+          src="/images/banner.png"
+          alt="Pastel Mountain Sunset Banner"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_20%] lg:object-[center_28%]"
+        />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Typography & Narrative (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col items-start z-10">
-            {/* Status Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0D0F12] border border-white/[0.08] text-xs font-mono text-[#A1A1AA] mb-6 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-pulse" />
-              <span className="tracking-wide uppercase text-[11px] text-[#F4F4F5]">
-                OPEN TO EXCITING OPPORTUNITIES
-              </span>
+        {/* Soft atmospheric gradient scrim on left to ensure high text contrast while keeping mountains vivid */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#FFF8F2]/75 via-[#FFF8F2]/30 to-transparent lg:w-[55%]" />
+        
+        {/* Mobile atmospheric scrim */}
+        <div className="absolute inset-0 bg-[#FFF8F2]/55 sm:bg-[#FFF8F2]/45 lg:hidden" />
+
+        {/* Crisp subtle bottom edge blend into page background */}
+        <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#FFF8F2] to-transparent pointer-events-none" />
+      </div>
+
+      {/* 2. Main Hero Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-end">
+          
+          {/* Photo Column: Displayed FIRST on mobile (order-1), right side on desktop (order-2) */}
+          <div className="order-1 lg:order-2 lg:col-span-6 relative flex items-end justify-center lg:justify-start lg:pl-6 xl:pl-10">
+            
+            {/* Circular Backdrop + Cutout Container (Responsive sizes) */}
+            <div className="relative w-[230px] h-[260px] sm:w-[280px] sm:h-[320px] lg:w-[370px] lg:h-[430px] flex items-end justify-center">
+              
+              {/* Concentric Circle Backdrops */}
+              <div className="absolute top-2 sm:top-4 lg:top-7 w-[210px] h-[210px] sm:w-[250px] sm:h-[250px] lg:w-[345px] lg:h-[345px] flex items-center justify-center pointer-events-none">
+                
+                {/* Outer Thin Concentric Orbital Ring */}
+                <div className="absolute inset-[-10px] sm:inset-[-12px] lg:inset-[-14px] rounded-full border border-white/35 pointer-events-none" />
+
+                {/* Inner Translucent Tinted Circular Disc */}
+                <div
+                  className="w-full h-full rounded-full shadow-2xl pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 50% 45%, rgba(133, 54, 100, 0.45) 0%, rgba(92, 41, 74, 0.62) 65%, rgba(68, 29, 54, 0.78) 100%)",
+                  }}
+                />
+              </div>
+
+              {/* Tanuj's Cutout Portrait */}
+              <div className="relative z-10 w-[92%] sm:w-[90%] lg:w-[92%] h-[96%] sm:h-[98%] lg:h-[100%] flex items-end justify-center pointer-events-none">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/tanuj_cutout.png"
+                    alt="Tanuj Kashyap - Software Developer"
+                    fill
+                    priority
+                    sizes="(max-width: 640px) 230px, (max-width: 1024px) 280px, 370px"
+                    className="object-contain object-bottom drop-shadow-[0_12px_24px_rgba(43,24,37,0.3)]"
+                  />
+                </div>
+              </div>
+
+              {/* Tilted Handwritten Text Callout (Responsive scaling & positioning) */}
+              <div className="absolute -top-1 sm:top-1 lg:top-8 -right-3 sm:-right-4 lg:left-[350px] xl:left-[380px] lg:right-auto z-30 pointer-events-none select-none transform rotate-[-8deg] whitespace-nowrap scale-[0.72] sm:scale-85 lg:scale-100 origin-top-right lg:origin-top-left">
+                <div className="text-right lg:text-left">
+                  <span
+                    className="block text-2xl sm:text-3xl lg:text-[32px] text-[#8E3666] font-bold leading-tight drop-shadow-xs"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    Turning
+                    <br />
+                    Ideas into
+                    <br />
+                    Real Solutions
+                  </span>
+                  
+                  {/* Hand-drawn scribble underline */}
+                  <svg
+                    className="w-24 sm:w-28 h-3 ml-auto lg:ml-0 mt-0.5 text-[#8E3666]"
+                    viewBox="0 0 100 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2 8C20 3 50 2 98 6C75 10 35 11 15 9"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+
             </div>
 
-            {/* Dominant Headline */}
-            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-bold tracking-tight text-white leading-[1.08] font-display mb-6">
-              BUILDING DIGITAL <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F4F4F5] to-[#A1A1AA]">
-                PRODUCTS THAT
-              </span> <br />
-              <span className="text-[#00F0FF] relative inline-block">
-                SOLVE REAL PROBLEMS.
-                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-[#00F0FF] to-transparent opacity-60" />
+          </div>
+
+          {/* Typography & CTAs: Displayed BELOW the photo on mobile (order-2), left side on desktop (order-1) */}
+          <div className="order-2 lg:order-1 lg:col-span-6 flex flex-col items-center text-center lg:items-start lg:text-left z-10 lg:self-center pt-2 sm:pt-4 lg:pt-0 pb-2 sm:pb-4 lg:pb-0">
+            
+            {/* Small Introductory Text */}
+            <span className="text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#4A3E47] uppercase mb-1.5 sm:mb-2">
+              HI, I&apos;M
+            </span>
+
+            {/* Main Heading: Tanuj Kashyap */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold font-display tracking-tight leading-[1.08] mb-2 text-[#241821]">
+              Tanuj{" "}
+              <span className="text-[#8E3666]">
+                Kashyap
               </span>
             </h1>
 
-            {/* Positioning Statement - Crisp & Clean */}
-            <p className="text-lg sm:text-xl text-[#A1A1AA] font-light max-w-xl leading-relaxed mb-8">
-              Hi, I&apos;m <span className="text-white font-semibold">Tanuj Kashyap</span> — Software Developer crafting scalable backends and modern web platforms.
-            </p>
+            {/* Profession */}
+            <div className="text-lg sm:text-2xl lg:text-[28px] font-semibold text-[#2E222B] mb-5 sm:mb-7 lg:mb-8 font-display">
+              Software Developer
+            </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
+            {/* Action Buttons Row */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full sm:w-auto">
+              {/* Primary CTA: View My Work */}
               <a
-                href="#work"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[#00F0FF] text-[#08090B] font-semibold text-sm tracking-wide flex items-center justify-center gap-2 hover:bg-[#00F0FF]/90 hover:shadow-[0_0_24px_rgba(0,240,255,0.35)] transition-all active:scale-[0.98]"
+                href="#projects"
+                className="group px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#5C2849] hover:bg-[#461C36] text-white font-semibold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
               >
-                <span>View Selected Work</span>
-                <ArrowDown className="w-4 h-4" />
+                <span>View My Work</span>
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
-              <button
-                onClick={onOpenResume}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#0D0F12] hover:bg-[#12151A] border border-white/10 hover:border-white/20 text-white font-mono text-xs tracking-wider flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
-              >
-                <FileText className="w-4 h-4 text-[#00F0FF]" />
-                <span>DOWNLOAD RESUME</span>
-              </button>
-
+              {/* Secondary CTA: Contact Me */}
               <a
                 href="#contact"
-                className="w-full sm:w-auto px-5 py-3.5 rounded-full border border-transparent hover:border-white/[0.08] text-xs font-mono text-[#A1A1AA] hover:text-white flex items-center justify-center gap-1.5 transition-colors"
+                className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-[#FFF8F2]/90 hover:bg-[#FFF8F2] border border-[#8E3666]/60 hover:border-[#8E3666] text-[#5C2849] font-semibold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2 transition-all duration-200 backdrop-blur-xs shadow-xs active:scale-95 cursor-pointer"
               >
-                <span>Get in Touch</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
-
-            {/* Secondary Links & Technical Meta */}
-            <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-white/[0.06] w-full">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#71717A]">
-                CONNECT:
-              </span>
-              <a
-                href={profileData.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs font-mono text-[#A1A1AA] hover:text-[#00F0FF] transition-colors"
-              >
-                <LinkedinIcon className="w-4 h-4" />
-                <span>LinkedIn</span>
-              </a>
-              <a
-                href={`mailto:${profileData.email}`}
-                className="flex items-center gap-2 text-xs font-mono text-[#A1A1AA] hover:text-[#00F0FF] transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                <span>{profileData.email}</span>
+                <Send className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#8E3666] -rotate-12" />
+                <span>Contact Me</span>
               </a>
             </div>
           </div>
 
-          {/* Right Column: Profile Image with Flowing Liquid Water Border (5 cols) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end z-10">
-            <div className="relative w-full max-w-sm">
-              {/* Liquid Fluid Glow Tube Container */}
-              <div className="relative p-[2.5px] rounded-2xl overflow-hidden shadow-2xl shadow-black/90">
-                {/* Rotating Conic Liquid Stream (Longer Fluid Wave) */}
-                <div
-                  className="absolute -inset-[120%] animate-liquid-border"
-                  style={{
-                    background:
-                      "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 60deg, rgba(0, 240, 255, 0.05) 120deg, rgba(0, 240, 255, 0.2) 200deg, #0ea5e9 260deg, #38BDF8 310deg, #00F0FF 345deg, #E0F7FA 356deg, transparent 360deg)",
-                  }}
-                />
-
-                {/* Diffused Liquid Water Glow */}
-                <div
-                  className="absolute -inset-[120%] animate-liquid-border blur-md opacity-80"
-                  style={{
-                    background:
-                      "conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 100deg, rgba(0, 240, 255, 0.15) 180deg, #00F0FF 300deg, #38BDF8 345deg, transparent 360deg)",
-                  }}
-                />
-
-                {/* Inner Card Frame */}
-                <div className="relative rounded-[14px] bg-[#0D0F12] p-3 overflow-hidden">
-                  {/* Top Border Spec Strip */}
-                  <div className="flex items-center justify-between px-1 pb-2.5 mb-2.5 border-b border-white/[0.06] text-[10px] font-mono text-[#71717A]">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-                      <span className="text-[#A1A1AA]">IT WORKS // DON'T ASK</span>
-                    </div>
-                    <span className="text-[#00F0FF]">PORTFOLIO.2026</span>
-                  </div>
-
-                  {/* Profile Photo */}
-                  <div className="relative w-full aspect-[4/4.5] rounded-xl overflow-hidden bg-[#08090B] border border-white/[0.08]">
-                    <Image
-                      src="/tanuj.png"
-                      alt="Tanuj Kashyap"
-                      width={500}
-                      height={560}
-                      priority
-                      className="w-full h-full object-cover object-top"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D0F12]/80 via-transparent to-transparent pointer-events-none" />
-                  </div>
-
-                  {/* Bottom Border Spec Strip */}
-                  <div className="flex items-center justify-between px-1 pt-2.5 mt-2.5 border-t border-white/[0.06] text-[10px] font-mono text-[#71717A]">
-                    <span>[ BACKEND • WEB ]</span>
-                    <span className="text-white/80 font-medium">JAVA / NEXT.JS</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
