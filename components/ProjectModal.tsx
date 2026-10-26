@@ -12,6 +12,8 @@ import {
   ShieldCheck,
   Calendar,
   Maximize2,
+  Bell,
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import { ProjectItem, ProjectSnapshot } from "../data/projects";
@@ -164,6 +166,59 @@ export default function ProjectModal({ project, onClose, onContactClick }: Proje
           <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
             <span className="text-[#8E7485]">SECURITY ISOLATION</span>
             <span className="text-[#8E3666] font-bold">100% RBAC</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (project.id === "notification-system") {
+      return (
+        <div className="rounded-2xl bg-white/90 border border-[#B58AA8]/25 p-5 space-y-4 shadow-2xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[#B58AA8]/20">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#8E3666] animate-pulse" />
+              <span className="font-mono text-xs font-bold text-[#5C2849]">
+                REAL-TIME DISPATCH ENGINE
+              </span>
+            </div>
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#FCECEE] text-[#8E3666] font-semibold border border-[#B58AA8]/30">
+              MESSAGING
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            <div className="p-3.5 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center justify-between shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-[#FCECEE] text-[#8E3666]">
+                  <Bell className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-[#241821] block">
+                    Redis Pub/Sub & WebSockets
+                  </span>
+                  <span className="text-[11px] text-[#8E7485]">
+                    Multi-channel async broadcast
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs font-mono font-bold text-[#8E3666]">&lt; 10ms</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-2xs">
+                <Zap className="w-3.5 h-3.5 text-[#8E3666]" />
+                <span className="text-xs font-medium text-[#241821]">Rate Limiting</span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-2xs">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#5C2849]" />
+                <span className="text-xs font-medium text-[#241821]">99.9% Delivery</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
+            <span className="text-[#8E7485]">SYSTEM THROUGHPUT</span>
+            <span className="text-[#8E3666] font-bold">10,000+ MSG/SEC</span>
           </div>
         </div>
       );

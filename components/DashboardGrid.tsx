@@ -536,7 +536,7 @@ export default function DashboardGrid({ onSelectProject, onOpenResume }: Dashboa
             <div className="flex items-center gap-2 mb-2">
               <Send className="w-4 h-4 text-[#8E3666] -rotate-12" />
               <h3 className="font-bold text-base text-[#241821] font-display">
-                Contact Me
+                Hire Me
               </h3>
             </div>
 

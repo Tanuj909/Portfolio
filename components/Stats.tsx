@@ -28,7 +28,7 @@ export default function Stats() {
   ];
 
   return (
-    <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2 sm:mt-4 lg:-mt-12 mb-8 sm:mb-10">
+    <div className="hidden lg:block relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 mb-6">
       <div className="rounded-2xl bg-white border border-[#B58AA8]/25 p-3.5 sm:p-5 shadow-[0_12px_32px_-6px_rgba(75,38,63,0.09)]">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-0">
           {statsList.map((stat, idx) => (

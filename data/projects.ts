@@ -245,6 +245,72 @@ export const projectsData: ProjectItem[] = [
     ],
   },
   {
+    id: "notification-system",
+    title: "Notification System",
+    tagline: "High-throughput distributed notification engine with real-time multi-channel dispatch",
+    category: "BACKEND",
+    projectType: "DISTRIBUTED SYSTEM",
+    year: "2026",
+    role: "Java Backend Engineer",
+    industry: "Distributed Systems & Real-Time Messaging",
+    duration: "Production Service",
+    description:
+      "A distributed notification service built with Java and Spring Boot designed for real-time dispatch across WebSockets, Push notifications, SMS, and Email with guaranteed delivery and rate limiting.",
+    featured: true,
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "Redis Pub/Sub",
+      "WebSockets",
+      "PostgreSQL",
+      "Spring Security",
+      "REST APIs",
+      "Docker",
+    ],
+    liveUrl: "https://portfolio-seven-dun-14.vercel.app/",
+    accentColor: "#8E3666",
+    badgeTheme: "plum" as any,
+    metrics: [
+      { label: "Dispatch Latency", value: "< 10ms" },
+      { label: "Delivery Success", value: "99.9%" },
+      { label: "Concurrent Throughput", value: "10k+ msg/s" },
+    ],
+    keyPoints: [
+      {
+        title: "Async Multi-Channel Dispatch",
+        description:
+          "Architected asynchronous event-driven queues to handle multi-channel notification dispatch including real-time WebSocket alerts, mobile push, and transactional notifications without blocking caller threads.",
+      },
+      {
+        title: "Redis Pub/Sub & In-Memory Queueing",
+        description:
+          "Implemented Redis Pub/Sub channels for instant cross-node event propagation and sub-10ms delivery latencies across high-concurrency client connections.",
+      },
+      {
+        title: "Template Engine & Delivery Tracking",
+        description:
+          "Engineered dynamic notification templating with variable substitution, payload validation, delivery status logging, and automatic retry mechanisms for failed dispatches.",
+      },
+      {
+        title: "Token Bucket Rate Limiting",
+        description:
+          "Integrated Redis-based token bucket rate limiting to prevent downstream spam, protect third-party gateway quotas, and ensure high system availability under sudden traffic spikes.",
+      },
+    ],
+    techStackBreakdown: [
+      { category: "Core Engine", skills: ["Java", "Spring Boot", "Async Event Architecture", "REST APIs"] },
+      { category: "Messaging & Caching", skills: ["Redis Pub/Sub", "WebSockets", "In-Memory Queues"] },
+      { category: "Persistence & Audit", skills: ["PostgreSQL", "JPA / Hibernate", "Delivery Audit Logs"] },
+      { category: "DevOps & Tooling", skills: ["Docker", "Linux VPS", "Postman", "Git"] },
+    ],
+    highlights: [
+      "Sub-10ms end-to-end event dispatch latency using Redis Pub/Sub.",
+      "Guaranteed 99.9% delivery rate with automatic retry policies and dead-letter handling.",
+      "High-throughput architecture tested to support 10,000+ notifications per second.",
+      "Strict rate limiting and quota protection via in-memory token buckets.",
+    ],
+  },
+  {
     id: "hospital-management-system",
     title: "Hospital Management System",
     tagline: "Hospital and patient management application with appointment scheduling & RBAC",

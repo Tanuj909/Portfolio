@@ -66,10 +66,10 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
             href="#hero"
             className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
           >
-            <div className="flex items-center text-2xl font-bold tracking-tight">
+            {/* <div className="flex items-center text-2xl font-bold tracking-tight">
               <span className="text-[#30252E]">T</span>
               <span className="text-[#B58AA8]">K</span>
-            </div>
+            </div> */}
             <span className="font-bold text-base sm:text-lg tracking-tight text-[#2B222A]">
               Tanuj Kashyap
             </span>

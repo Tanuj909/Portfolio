@@ -12,6 +12,9 @@ import {
   Calendar,
   Layers,
   ExternalLink,
+  Bell,
+  Zap,
+  CheckCircle2,
 } from "lucide-react";
 import { projectsData, ProjectItem } from "../data/projects";
 
@@ -73,6 +76,61 @@ export default function Work({ onSelectProject }: WorkProps) {
             <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
               <span className="text-[#8E7485]">DATABASE LOAD REDUCTION</span>
               <span className="text-[#4B263F] font-bold">90%+ IN RAM</span>
+            </div>
+          </div>
+        );
+
+      case "notification-system":
+        return (
+          <div className="relative w-full h-full flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-[#FFF4ED] via-[#FFF8F2] to-[#FCECEE] border border-[#B58AA8]/30 shadow-xs overflow-hidden">
+            {/* Top Bar */}
+            <div className="flex items-center justify-between border-b border-[#B58AA8]/20 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#8E3666] animate-pulse" />
+                <span className="font-mono text-xs text-[#5C2849] font-bold tracking-wider">
+                  REAL-TIME DISPATCH ENGINE
+                </span>
+              </div>
+              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#FCECEE] text-[#8E3666] border border-[#B58AA8]/30 font-semibold">
+                MESSAGING
+              </span>
+            </div>
+
+            {/* Architecture Flow */}
+            <div className="my-5 space-y-3">
+              <div className="p-3.5 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center justify-between shadow-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-lg bg-[#FCECEE] text-[#8E3666]">
+                    <Bell className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-[#30252E] block">
+                      Redis Pub/Sub & WebSockets
+                    </span>
+                    <span className="text-[10px] text-[#8E7485]">
+                      Multi-channel async broadcast
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-mono font-bold text-[#8E3666]">&lt; 10ms</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-xs">
+                  <Zap className="w-3.5 h-3.5 text-[#8E3666]" />
+                  <span className="text-[11px] font-medium text-[#4B263F]">Rate Limiting</span>
+                </div>
+                <div className="p-3 rounded-xl bg-[#FFF8F2] border border-[#B58AA8]/25 flex items-center gap-2 shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#75405F]" />
+                  <span className="text-[11px] font-medium text-[#4B263F]">99.9% Delivery</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Metric */}
+            <div className="pt-3 border-t border-[#B58AA8]/20 flex items-center justify-between text-xs font-mono">
+              <span className="text-[#8E7485]">SYSTEM THROUGHPUT</span>
+              <span className="text-[#8E3666] font-bold">10,000+ MSG/SEC</span>
             </div>
           </div>
         );
@@ -182,11 +240,11 @@ export default function Work({ onSelectProject }: WorkProps) {
             Featured Projects
           </h2>
           <p className="text-sm sm:text-base text-[#634E5D] max-w-2xl mt-2 font-normal">
-            Real-world applications and scalable backend systems I&apos;ve built with clean architecture and modern technologies.
+            Production applications and high-throughput backend systems built with clean architecture and scalable engineering.
           </p>
         </div>
 
-        {/* Project Cards Grid */}
+        {/* Project Cards List */}
         <div className="space-y-10 sm:space-y-14">
           {projectsData.map((project, index) => {
             const isEven = index % 2 === 0;
@@ -197,10 +255,9 @@ export default function Work({ onSelectProject }: WorkProps) {
                 className="group rounded-3xl bg-white/90 backdrop-blur-md border border-[#B58AA8]/30 p-6 sm:p-8 lg:p-10 shadow-[0_12px_32px_-8px_rgba(75,38,63,0.08)] hover:border-[#8E3666]/50 hover:shadow-[0_20px_40px_-10px_rgba(75,38,63,0.14)] transition-all duration-300"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                  
                   {/* Visual Preview (Left on even, Right on odd) */}
                   <div
-                    className={`lg:col-span-5 h-[300px] sm:h-[340px] w-full ${
+                    className={`lg:col-span-5 h-[280px] sm:h-[320px] w-full ${
                       isEven ? "lg:order-1" : "lg:order-2"
                     }`}
                   >
@@ -230,31 +287,31 @@ export default function Work({ onSelectProject }: WorkProps) {
 
                     {/* Title & Tagline */}
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-[#241821] group-hover:text-[#8E3666] transition-colors">
-                        {project.title}
+                      <h3 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-[#241821] group-hover:text-[#8E3666] transition-colors flex items-center gap-2">
+                        <span>{project.title}</span>
+                        {project.id === "riderzz" && (
+                          <span className="text-xs sm:text-sm font-medium text-[#8E7485]">
+                            (Logistic Platform)
+                          </span>
+                        )}
+                        {project.id === "notification-system" && (
+                          <span className="text-xs sm:text-sm font-medium text-[#8E7485]">
+                            (Real-Time Engine)
+                          </span>
+                        )}
                       </h3>
                       <p className="text-xs sm:text-sm font-medium text-[#8E3666] mt-1">
                         {project.tagline}
                       </p>
                     </div>
 
-                    {/* Concise Description */}
+                    {/* Description */}
                     <p className="text-sm text-[#634E5D] leading-relaxed">
                       {project.description}
                     </p>
 
-                    {/* Key Highlights */}
-                    <ul className="space-y-1.5 text-xs text-[#241821]">
-                      {project.highlights.slice(0, 3).map((item, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#8E3666] mt-1.5 shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-
                     {/* Tech Badges */}
-                    <div className="pt-2">
+                    <div className="pt-1">
                       <div className="flex flex-wrap gap-1.5">
                         {project.technologies.map((tech, tIdx) => (
                           <span
@@ -288,8 +345,19 @@ export default function Work({ onSelectProject }: WorkProps) {
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       )}
-                    </div>
 
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2.5 rounded-full bg-white hover:bg-[#FCECEE] border border-[#B58AA8]/35 text-[#5C2849] text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-2xs"
+                        >
+                          <span>GitHub</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
